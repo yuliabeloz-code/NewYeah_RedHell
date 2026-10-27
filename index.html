@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Моя ёлка</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: #123a32;
+    }
+
+    .tree {
+      font-size: 120px;
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 12px;
+      font-size: 18px;
+      background: #ffd966;
+      cursor: pointer;
+    }
+
+    #message {
+      min-height: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Моя новогодняя ёлка</h1>
+    <div class="tree">🎄</div>
+    <button onclick="celebrate()">Зажечь огоньки ✨</button>
+    <p id="message"></p>
+  </main>
+
+  <script>
+    function celebrate() {
+      document.getElementById("message").textContent =
+        "✨ С праздником! Пусть желания сбываются! ✨";
+    }
+  </script>
+</body>
+</html>
