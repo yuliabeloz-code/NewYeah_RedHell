@@ -106,6 +106,123 @@
       color: #332400;
       background: #ffd966;
     }
+    /* Фон после входа */
+#app {
+  min-height: 100dvh;
+  padding-top: 100px;
+  background: radial-gradient(
+    circle at top,
+    #b82c35,
+    #790f1d 70%,
+    #4a0710
+  );
+}
+
+/* Гирлянда */
+.garland {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+/* Провод гирлянды */
+.garland::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  border-bottom: 2px solid #263a2a;
+  border-radius: 0 0 50% 50%;
+}
+
+/* Лампочки */
+.garland span {
+  position: relative;
+  top: 25px;
+  width: 10px;
+  height: 15px;
+  border-radius: 50%;
+  background: #ffe895;
+  box-shadow: 0 0 8px 3px rgba(255, 225, 125, 0.65);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.garland span:nth-child(3n + 2) {
+  background: #a7f7bf;
+  box-shadow: 0 0 8px 3px rgba(130, 255, 160, 0.6);
+  animation-delay: 0.6s;
+}
+
+.garland span:nth-child(3n) {
+  background: #ffafba;
+  box-shadow: 0 0 8px 3px rgba(255, 140, 160, 0.6);
+  animation-delay: 1.2s;
+}
+
+@keyframes glow {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* Падающий снег */
+.snow {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.snow span {
+  position: absolute;
+  top: -30px;
+  left: var(--left);
+  color: white;
+  font-size: var(--size);
+  opacity: 0.8;
+  animation: snowfall var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes snowfall {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+/* Текст и меню находятся поверх снега */
+#app main,
+.welcome-message {
+  position: relative;
+  z-index: 2;
+}
+
+.navigation {
+  z-index: 3;
+}
+
+/* Учитываем настройку уменьшения движения */
+@media (prefers-reduced-motion: reduce) {
+  .snow span,
+  .garland span {
+    animation: none;
+  }
+
+  .snow {
+    display: none;
+  }
+}
   </style>
 </head>
 
@@ -119,11 +236,30 @@
 
   <!-- Главное меню -->
   <div id="app" hidden>
+    <div class="garland" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="snow" aria-hidden="true">
+  <span style="--left: 5%;  --size: 14px; --duration: 9s;  --delay: -2s;">❄</span>
+  <span style="--left: 14%; --size: 10px; --duration: 12s; --delay: -7s;">❄</span>
+  <span style="--left: 23%; --size: 16px; --duration: 10s; --delay: -4s;">❄</span>
+  <span style="--left: 32%; --size: 11px; --duration: 13s; --delay: -9s;">❄</span>
+  <span style="--left: 41%; --size: 13px; --duration: 11s; --delay: -1s;">❄</span>
+  <span style="--left: 50%; --size: 10px; --duration: 9s;  --delay: -6s;">❄</span>
+  <span style="--left: 59%; --size: 15px; --duration: 12s; --delay: -3s;">❄</span>
+  <span style="--left: 68%; --size: 11px; --duration: 10s; --delay: -8s;">❄</span>
+  <span style="--left: 77%; --size: 14px; --duration: 13s; --delay: -5s;">❄</span>
+  <span style="--left: 86%; --size: 10px; --duration: 11s; --delay: -10s;">❄</span>
+  <span style="--left: 94%; --size: 13px; --duration: 9s;  --delay: -4s;">❄</span>
+</div>
     <p class="welcome-message">Добро пожаловать домой, чертята!</p>
 
     <main>
       <section id="advent" class="page" hidden>
-        <h1>🎁 Адвент-календарь</h1>
+        <h1> 🎁 Адвент-календарь</h1>
         <p>Здесь скоро появится адвент-календарь.</p>
       </section>
 
