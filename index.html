@@ -4,48 +4,182 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Моя ёлка</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
       font-family: Arial, sans-serif;
       color: white;
-      background: url('background.jpg') no-repeat center center fixed;
+      text-align: center;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.5)),
+        url("background.jpg") no-repeat center center fixed;
       background-size: cover;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     button {
-      padding: 14px 24px;
       border: 0;
-      border-radius: 12px;
-      font-size: 18px;
-      background: #ffd966;
       cursor: pointer;
+      font-family: inherit;
       font-weight: bold;
     }
 
-    #message {
-      min-height: 30px;
+    /* Первая страница */
+    #welcome-screen {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .enter-button {
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 18px;
+      background: #ffd966;
+      color: #332400;
+    }
+
+    /* Страницы главного меню */
+    #app {
+      min-height: 100vh;
+      padding: 35px 20px 110px;
+    }
+
+    .welcome-message {
+      margin: 0 0 30px;
       font-size: 20px;
-      margin-top: 15px;
+    }
+
+    .page {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 24px;
+      border-radius: 18px;
+      background: rgba(25, 30, 28, 0.75);
+    }
+
+    .page h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .page p {
+      line-height: 1.5;
+    }
+
+    /* Кнопки внизу экрана */
+    .navigation {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      gap: 8px;
+      padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+      background: rgba(25, 30, 28, 0.95);
+    }
+
+    .navigation button {
+      flex: 1;
+      min-width: 0;
+      min-height: 54px;
+      padding: 8px 4px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: white;
+      background: #46564b;
+    }
+
+    .navigation button[aria-current="page"] {
+      color: #332400;
+      background: #ffd966;
     }
   </style>
 </head>
+
 <body>
-  <main>
-    <button onclick="knock()">Постучать в дверь</button>
-    <p id="message"></p>
+  <!-- Первая страница -->
+  <main id="welcome-screen">
+    <button class="enter-button" type="button" onclick="enterHome()">
+      Постучать в дверь
+    </button>
   </main>
 
+  <!-- Главное меню -->
+  <div id="app" hidden>
+    <p class="welcome-message">Добро пожаловать домой, чертята!</p>
+
+    <main>
+      <section id="advent" class="page" hidden>
+        <h1>🎁 Адвент-календарь</h1>
+        <p>Здесь скоро появится адвент-календарь.</p>
+      </section>
+
+      <section id="living-room" class="page">
+        <h1>🎄 Гостиная</h1>
+        <p>Добро пожаловать в нашу праздничную гостиную!</p>
+      </section>
+
+      <section id="personal-room" class="page" hidden>
+        <h1>🕯 Личная комната</h1>
+        <p>Здесь скоро появится ваша личная комната.</p>
+      </section>
+    </main>
+
+    <nav class="navigation" aria-label="Главное меню">
+      <button type="button" data-page="advent" onclick="showPage('advent')">
+        🎁<br>Адвент-календарь
+      </button>
+
+      <button
+        type="button"
+        data-page="living-room"
+        aria-current="page"
+        onclick="showPage('living-room')"
+      >
+        🎄<br>Гостиная
+      </button>
+
+      <button type="button" data-page="personal-room" onclick="showPage('personal-room')">
+        🕯<br>Личная комната
+      </button>
+    </nav>
+  </div>
+
   <script>
-    function knock() {
-      document.getElementById("message").textContent =
-        "Добро пожаловать домой,чертята!";
+    function enterHome() {
+      document.getElementById("welcome-screen").hidden = true;
+      document.getElementById("app").hidden = false;
+      showPage("living-room");
     }
-  </script>
+
+    function showPage(pageId) {
+      document.querySelectorAll(".page").forEach(function (page) {
+        page.hidden = page.id !== pageId;
+      });
+
+      document.querySelectorAll(".navigation button").forEach(function (button) {
+        if (button.dataset.page === pageId) {
+          button.setAttribute("aria-current", "page");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+      </script>
 </body>
 </html>
