@@ -14,21 +14,8 @@
       text-align: center;
       font-family: Arial, sans-serif;
       color: white;
-      /* Добавляем фон */
       background: url('background.jpg') no-repeat center center fixed;
       background-size: cover;
-    }
-
-    /* Добавим полупрозрачную подложку для текста, чтобы он читался на ярком фоне */
-    main {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 20px;
-      border-radius: 20px;
-    }
-
-    .tree {
-      font-size: 120px;
-      margin: 20px 0;
     }
 
     button {
@@ -50,9 +37,6 @@
 </head>
 <body>
   <main>
-    <h1>Новогоднее приветствие</h1>
-    <div class="tree">🎄</div>
-    <!-- Изменен текст кнопки -->
     <button onclick="knock()">Постучать в дверь</button>
     <p id="message"></p>
   </main>
@@ -60,7 +44,7 @@
   <script>
     function knock() {
       document.getElementById("message").textContent =
-        "🚪 Тук-тук!";
+        "Добро пожаловать домой,чертята!";
     }
   </script>
 </body>
