@@ -14,7 +14,16 @@
       text-align: center;
       font-family: Arial, sans-serif;
       color: white;
-      background: #123a32;
+      /* Добавляем фон */
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Добавим полупрозрачную подложку для текста, чтобы он читался на ярком фоне */
+    main {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 20px;
     }
 
     .tree {
@@ -29,26 +38,29 @@
       font-size: 18px;
       background: #ffd966;
       cursor: pointer;
+      font-weight: bold;
     }
 
     #message {
       min-height: 30px;
       font-size: 20px;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>Моя новогодняя ёлка</h1>
+    <h1>Новогоднее приветствие</h1>
     <div class="tree">🎄</div>
-    <button onclick="celebrate()">Зажечь огоньки ✨</button>
+    <!-- Изменен текст кнопки -->
+    <button onclick="knock()">Постучать в дверь</button>
     <p id="message"></p>
   </main>
 
   <script>
-    function celebrate() {
+    function knock() {
       document.getElementById("message").textContent =
-        "✨ С праздником! Пусть желания сбываются! ✨";
+        "🚪 Тук-тук!";
     }
   </script>
 </body>
