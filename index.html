@@ -377,7 +377,7 @@ body.entered {
       });
       function updateLivingRoom() {
   const hour = new Date().getHours();
-  const isDay = hour >= 6 && hour < 21;
+  const isDay = hour >= 6 && hour < 16;
 
   document.getElementById("living-room").src = isDay
     ? "living-room.jpg"
