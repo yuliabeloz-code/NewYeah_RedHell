@@ -2,10 +2,20 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Моя ёлка</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добро пожаловать домой</title>
 
   <style>
+    :root {
+      color-scheme: dark;
+      --cream: #fff1d2;
+      --gold: #e7be76;
+      --red: #8f2835;
+      --red-light: #b4404c;
+      --green: #173c32;
+      --dark: #101d1a;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -13,185 +23,349 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
+      min-height: 100dvh;
+      color: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
       background:
-        linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.5)),
-        url("background.jpg") no-repeat center center fixed;
-      background-size: cover;
+        radial-gradient(circle at 50% 10%, #315347 0%, transparent 45%),
+        linear-gradient(160deg, #162f28, #0c1715 75%);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #fff1d2;
+      outline-offset: 4px;
     }
 
     [hidden] {
       display: none !important;
     }
 
-    button {
-      border: 0;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: bold;
-    }
-
-    /* Первый экран */
-    #welcome-screen {
+    .screen {
+      width: min(100%, 700px);
       min-height: 100vh;
       min-height: 100dvh;
+      margin: 0 auto;
+      padding: 24px 18px 30px;
+    }
+
+    /* Начальный экран */
+
+    .welcome-screen {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      text-align: center;
     }
 
-    .enter-button {
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-size: 18px;
-      background: #ffd966;
-      color: #332400;
+    .welcome-card {
+      width: min(100%, 420px);
+      padding: 42px 24px;
+      border: 1px solid rgba(231, 190, 118, 0.55);
+      border-radius: 24px;
+      background: rgba(12, 29, 24, 0.8);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
     }
 
-    /* Экран после входа */
-    #app {
-  position: relative;
-  isolation: isolate;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 35px 20px 110px;
-
-  background-color: #1b2822;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("background01.jpg?v=2");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-    }
+    .welcome-decoration {
+      font-size: 54px;
+      line-height: 1;
     }
 
-    .welcome-message {
-      margin: 0 0 30px;
-      font-size: 20px;
+    .welcome-card h1 {
+      margin: 20px 0 12px;
+      font-size: clamp(30px, 8vw, 44px);
+      color: var(--gold);
     }
 
-    .page {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 24px;
-      border-radius: 18px;
-      background: rgba(25, 30, 28, 0.75);
-    }
-
-    .page h1 {
-      margin-top: 0;
-      font-size: 26px;
-    }
-
-    .page p {
+    .welcome-card p {
+      margin: 0 0 28px;
+      font-size: 17px;
       line-height: 1.5;
     }
 
-    /* Кнопки внизу экрана */
-    .navigation {
-      position: fixed;
-      z-index: 1;
-      right: 0;
-      bottom: 0;
-      left: 0;
+    .knock-button {
+      padding: 15px 28px;
+      border: 1px solid #e6bd80;
+      border-radius: 999px;
+      color: #fff5e2;
+      background: linear-gradient(var(--red-light), var(--red));
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .knock-button:hover {
+      background: linear-gradient(#c34c58, #9f303d);
+    }
+
+    /* Экран после входа */
+
+    .home-screen {
       display: flex;
-      gap: 8px;
-      padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
-      background: rgba(25, 30, 28, 0.95);
+      flex-direction: column;
+      text-align: center;
     }
 
-    .navigation button {
+    .home-header {
+      padding: 12px 0 22px;
+    }
+
+    .ornament {
+      color: var(--gold);
+      font-size: 22px;
+      letter-spacing: 8px;
+    }
+
+    .home-header h1 {
+      margin: 10px 0 0;
+      color: var(--cream);
+      font-size: clamp(27px, 7vw, 42px);
+      line-height: 1.15;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .content {
+      display: flex;
       flex: 1;
-      min-width: 0;
-      min-height: 54px;
-      padding: 8px 4px;
-      border-radius: 12px;
-      font-size: 14px;
-      color: white;
-      background: #46564b;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .navigation button[aria-current="page"] {
-      color: #332400;
-      background: #ffd966;
+    .room-frame {
+      position: relative;
+      overflow: hidden;
+      padding: 8px;
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      background: #5b382b;
+      box-shadow:
+        0 0 0 4px #35271e,
+        0 14px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .room-frame img {
+      display: block;
+      width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      border-radius: 11px;
+      background: #1d1714;
+    }
+
+    .room-caption {
+      margin: 18px 0 8px;
+      color: var(--gold);
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    .placeholder {
+      padding: 50px 20px;
+      border: 1px solid rgba(231, 190, 118, 0.6);
+      border-radius: 20px;
+      background: rgba(12, 29, 24, 0.7);
+    }
+
+    .placeholder h2 {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: 28px;
+    }
+
+    .placeholder p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Нижнее меню */
+
+    .navigation {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+      padding: 18px 10px 12px;
+      border: 1px solid rgba(231, 190, 118, 0.45);
+      border-radius: 24px;
+      background: rgba(10, 26, 21, 0.85);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-button {
+            display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      color: var(--cream);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(60px, 17vw, 82px);
+      height: clamp(60px, 17vw, 82px);
+      padding: 8px;
+      overflow: hidden;
+      border: 2px solid rgba(231, 190, 118, 0.65);
+      border-radius: 50%;
+      background: #68313a;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .nav-button:hover .nav-icon,
+    .nav-button[aria-current="page"] .nav-icon {
+      transform: translateY(-3px);
+      border-color: #ffe1a0;
+      box-shadow: 0 0 14px rgba(231, 190, 118, 0.3);
+    }
+
+    .nav-icon img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .nav-label {
+      font-size: clamp(12px, 3.3vw, 15px);
+      line-height: 1.2;
+    }
+
+    @media (max-width: 360px) {
+      .screen {
+        padding-right: 12px;
+        padding-left: 12px;
+      }
+
+      .navigation {
+        gap: 4px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Первый экран -->
-  <main id="welcome-screen">
-    <button class="enter-button" type="button" onclick="enterHome()">
-      Постучать в дверь
-    </button>
+  <!-- Начальный экран -->
+  <main id="welcome-screen" class="screen welcome-screen">
+    <div class="welcome-card">
+      <div class="welcome-decoration" aria-hidden="true">🚪</div>
+      <h1>Добро пожаловать!</h1>
+      <p>За этой дверью вас ждёт уютный праздничный дом.</p>
+      <button id="knock-button" class="knock-button" type="button">
+        Постучать в дверь
+      </button>
+    </div>
   </main>
 
-  <!-- Главное меню -->
-  <div id="app" hidden>
-    <p class="welcome-message">Добро пожаловать домой, чертята!</p>
+  <!-- Экран после нажатия на кнопку -->
+  <main id="home-screen" class="screen home-screen" hidden>
+    <header class="home-header">
+      <div class="ornament" aria-hidden="true">✦ ❄ ✦</div>
+      <h1>Добро пожаловать домой, чертята!</h1>
+    </header>
 
-    <main>
-      <section id="advent" class="page" hidden>
-        <h1>🎁 Адвент-календарь</h1>
-        <p>Здесь скоро появится адвент-календарь.</p>
+    <div class="content">
+      <!-- Гостиная -->
+      <section id="living-room-view" aria-label="Гостиная">
+        <div class="room-frame">
+          <img src="living-room.jpg" alt="Уютная праздничная гостиная">
+        </div>
+        <p class="room-caption">Как хорошо быть дома ✨</p>
       </section>
 
-      <section id="living-room" class="page">
-        <h1>🎄 Гостиная</h1>
-        <p>Добро пожаловать в нашу праздничную гостиную!</p>
+      <!-- Заглушка календаря -->
+      <section id="calendar-view" class="placeholder" hidden>
+        <h2>Адвент-календарь</h2>
+        <p>Этот раздел скоро появится.</p>
       </section>
 
-      <section id="personal-room" class="page" hidden>
-        <h1>🕯 Личная комната</h1>
-        <p>Здесь скоро появится ваша личная комната.</p>
+      <!-- Заглушка личной комнаты -->
+      <section id="personal-room-view" class="placeholder" hidden>
+        <h2>Личная комната</h2>
+        <p>Этот раздел скоро появится.</p>
       </section>
-    </main>
+    </div>
 
-    <nav class="navigation" aria-label="Главное меню">
-      <button type="button" data-page="advent" onclick="showPage('advent')">
-        🎁<br>Адвент-календарь
+    <nav class="navigation" aria-label="Навигация по дому">
+      <button
+        class="nav-button"
+        type="button"
+        data-view="calendar-view"
+      >
+        <span class="nav-icon">
+          <img src="Presents.png" alt="">
+        </span>
+        <span class="nav-label">Адвент-календарь</span>
       </button>
 
       <button
+        class="nav-button"
         type="button"
-        data-page="living-room"
+        data-view="living-room-view"
         aria-current="page"
-        onclick="showPage('living-room')"
       >
-        🎄<br>Гостиная
+        <span class="nav-icon">
+          <img src="Fire.png" alt="">
+        </span>
+        <span class="nav-label">Гостиная</span>
       </button>
 
-      <button type="button" data-page="personal-room" onclick="showPage('personal-room')">
-        🕯<br>Личная комната
+      <button
+        class="nav-button"
+        type="button"
+        data-view="personal-room-view"
+      >
+        <span class="nav-icon">
+          <img src="home.png" alt="">
+        </span>
+        <span class="nav-label">Личная комната</span>
       </button>
     </nav>
-  </div>
+  </main>
 
   <script>
-    function enterHome() {
-      document.getElementById("welcome-screen").hidden = true;
-      document.getElementById("app").hidden = false;
-      showPage("living-room");
-    }
+    const welcomeScreen = document.getElementById("welcome-screen");
+    const homeScreen = document.getElementById("home-screen");
+    const knockButton = document.getElementById("knock-button");
+    const navigationButtons = document.querySelectorAll(".nav-button");
 
-    function showPage(pageId) {
-      document.querySelectorAll(".page").forEach(function (page) {
-        page.hidden = page.id !== pageId;
-      });
-            document.querySelectorAll(".navigation button").forEach(function (button) {
-        if (button.dataset.page === pageId) {
-          button.setAttribute("aria-current", "page");
-        } else {
-          button.removeAttribute("aria-current");
-        }
-      });
+    const views = [
+      document.getElementById("living-room-view"),
+      document.getElementById("calendar-view"),
+      document.getElementById("personal-room-view")
+    ];
 
-      window.scrollTo(0, 0);
-    }
+    knockButton.addEventListener("click", function () {
+      welcomeScreen.hidden = true;
+      homeScreen.hidden = false;
+            window.scrollTo(0, 0);
+    });
+
+    navigationButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const selectedView = button.dataset.view;
+
+        views.forEach(function (view) {
+          view.hidden = view.id !== selectedView;
+        });
+
+        navigationButtons.forEach(function (navButton) {
+          navButton.removeAttribute("aria-current");
+        });
+
+        button.setAttribute("aria-current", "page");
+      });
+    });
   </script>
 </body>
 </html>
