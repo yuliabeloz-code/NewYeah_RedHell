@@ -53,15 +53,20 @@
 
     /* Экран после входа */
     #app {
-      position: relative;
-      isolation: isolate;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 35px 20px 110px;
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        url("background01.jpg") no-repeat center center;
-      background-size: cover;
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 35px 20px 110px;
+
+  background-color: #1b2822;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("background01.jpg?v=2");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    }
     }
 
     .welcome-message {
