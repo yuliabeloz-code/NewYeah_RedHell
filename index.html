@@ -1,136 +1,228 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добро пожаловать домой</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Моя ёлка</title>
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100%;
-            font-family: Georgia, serif;
-            color: #fdf5e6;
-            background: url('background01.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .screen {
-            box-sizing: border-box;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.5)),
+        url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
 
-        .screen[hidden] {
-            display: none;
-        }
+    [hidden] {
+      display: none !important;
+    }
 
-        /* Первый экран */
-        .welcome-screen {
-            justify-content: center;
-        }
+    button {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+    }
 
-        .knock-btn {
-            padding: 20px 35px;
-            border: 3px solid #c5a059;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fdf5e6;
-            font-family: inherit;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+    /* Первый экран */
+    #welcome-screen {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-        .knock-btn:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
+    .enter-button {
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 18px;
+      background: #ffd966;
+      color: #332400;
+    }
 
-        /* Экран после нажатия */
-        h1 {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 3rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
+    /* Экран бота */
+    #app {
+      position: relative;
+      isolation: isolate;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 35px 20px 110px;
+    }
 
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-top: auto;
-            margin-bottom: 50px;
-        }
+    /* Видео и затемнение видны только после входа */
+    .background-video,
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
 
-        .btn {
-            display: block;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #c5a059;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            background: rgba(0, 0, 0, 0.3);
-        }
+    .background-video {
+      z-index: -2;
+      object-fit: cover;
+    }
 
-        .btn:hover {
-            transform: scale(1.1);
-        }
+    .background-overlay {
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-        .btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    .welcome-message {
+      margin: 0 0 30px;
+      font-size: 20px;
+    }
+
+    .page {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 24px;
+      border-radius: 18px;
+      background: rgba(25, 30, 28, 0.75);
+    }
+
+    .page h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .page p {
+      line-height: 1.5;
+    }
+
+    /* Кнопки внизу экрана */
+    .navigation {
+      position: fixed;
+      z-index: 1;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      gap: 8px;
+      padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+      background: rgba(25, 30, 28, 0.95);
+    }
+
+    .navigation button {
+      flex: 1;
+      min-width: 0;
+      min-height: 54px;
+      padding: 8px 4px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: white;
+      background: #46564b;
+    }
+
+    .navigation button[aria-current="page"] {
+      color: #332400;
+      background: #ffd966;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Первый экран: фон не изменён -->
+  <main id="welcome-screen">
+    <button class="enter-button" type="button" onclick="enterHome()">
+      Постучать в дверь
+    </button>
+  </main>
 
-    <!-- Первый экран -->
-    <div class="screen welcome-screen" id="welcomeScreen">
-        <button class="knock-btn" id="knockButton" type="button">
-            Постучать в дверь
-        </button>
-    </div>
+  <!-- Главное меню -->
+  <div id="app" hidden>
+    <video
+      id="background-video"
+      class="background-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+    >
+      <source src="background-video.mp4" type="video/mp4">
+    </video>
 
-    <!-- Экран, который появится после нажатия -->
-    <div class="screen" id="homeScreen" hidden>
-        <h1>Добро пожаловать домой,<br>чертята!</h1>
+    <div class="background-overlay" aria-hidden="true"></div>
 
-        <div class="buttons-container">
-            <!-- Адвент-календарь -->
-            <a class="btn" href="advent.html">
-                <img src="Presents.png" alt="Адвент-календарь">
-            </a>
+    <p class="welcome-message">Добро пожаловать домой, чертята!</p>
 
-            <!-- Гостиная -->
-            <a class="btn" href="living-room.html">
-                <img src="Fire.png" alt="Гостиная">
-            </a>
+    <main>
+      <section id="advent" class="page" hidden>
+        <h1>🎁 Адвент-календарь</h1>
+        <p>Здесь скоро появится адвент-календарь.</p>
+      </section>
 
-            <!-- Личная комната -->
-            <a class="btn" href="room.html">
-                <img src="Home.png" alt="Личная комната">
-            </a>
-        </div>
-    </div>
+      <section id="living-room" class="page">
+        <h1>🎄 Гостиная</h1>
+        <p>Добро пожаловать в нашу праздничную гостиную!</p>
+      </section>
 
-    <script>
-        const knockButton = document.getElementById('knockButton');
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const homeScreen = document.getElementById('homeScreen');
+      <section id="personal-room" class="page" hidden>
+        <h1>🕯 Личная комната</h1>
+        <p>Здесь скоро появится ваша личная комната.</p>
+      </section>
+    </main>
 
-        knockButton.addEventListener('click', function () {
-            welcomeScreen.hidden = true;
-            homeScreen.hidden = false;
-        });
-    </script>
+    <nav class="navigation" aria-label="Главное меню">
+      <button type="button" data-page="advent" onclick="showPage('advent')">
+        🎁<br>Адвент-календарь
+      </button>
 
+      <button
+        type="button"
+        data-page="living-room"
+        aria-current="page"
+        onclick="showPage('living-room')"
+      >
+        🎄<br>Гостиная
+      </button>
+            <button type="button" data-page="personal-room" onclick="showPage('personal-room')">
+        🕯<br>Личная комната
+      </button>
+    </nav>
+  </div>
+
+  <script>
+    function enterHome() {
+      document.getElementById("welcome-screen").hidden = true;
+      document.getElementById("app").hidden = false;
+
+      const video = document.getElementById("background-video");
+      video.play().catch(function () {
+        // Если браузер запретил воспроизведение, останется фоновая картинка.
+      });
+
+      showPage("living-room");
+    }
+
+    function showPage(pageId) {
+      document.querySelectorAll(".page").forEach(function (page) {
+        page.hidden = page.id !== pageId;
+      });
+
+      document.querySelectorAll(".navigation button").forEach(function (button) {
+        if (button.dataset.page === pageId) {
+          button.setAttribute("aria-current", "page");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+  </script>
 </body>
 </html>
