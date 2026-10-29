@@ -251,6 +251,15 @@
         gap: 4px;
       }
     }
+      /* Фон начального экрана */
+body {
+  background: #101d1a url("background.jpg") center center / cover no-repeat;
+}
+
+/* Фон после входа */
+body.entered {
+  background: #101d1a url("background01.jpg") center center / cover no-repeat;
+}
   </style>
 </head>
 
@@ -258,7 +267,7 @@
   <!-- Начальный экран -->
   <main id="welcome-screen" class="screen welcome-screen">
     <div class="welcome-card">
-      <div class="welcome-decoration" aria-hidden="true">🚪</div>
+      <div class="welcome-decoration" aria-hidden="true"></div>
       <h1>Добро пожаловать!</h1>
       <p>За этой дверью вас ждёт уютный праздничный дом.</p>
       <button id="knock-button" class="knock-button" type="button">
@@ -346,10 +355,11 @@
     ];
 
     knockButton.addEventListener("click", function () {
-      welcomeScreen.hidden = true;
-      homeScreen.hidden = false;
-            window.scrollTo(0, 0);
-    });
+  welcomeScreen.hidden = true;
+  homeScreen.hidden = false;
+  document.body.classList.add("entered");
+  window.scrollTo(0, 0);
+});
 
     navigationButtons.forEach(function (button) {
       button.addEventListener("click", function () {
