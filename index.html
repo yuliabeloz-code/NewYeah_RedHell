@@ -285,12 +285,12 @@ body.entered {
 
     <div class="content">
       <!-- Гостиная -->
-      <section id="living-room-view" aria-label="Гостиная">
-        <div class="room-frame">
-          <img src="living-room.jpg" alt="Уютная праздничная гостиная">
-        </div>
-        <p class="room-caption">Как хорошо быть дома ✨</p>
-      </section>
+<section id="living-room-view" aria-label="Гостиная">
+  <div class="room-frame">
+    <img id="living-room" src="living-room.jpg" alt="Уютная праздничная гостиная">
+  </div>
+  <p class="room-caption">Как хорошо быть дома ✨</p>
+</section>
 
       <!-- Заглушка календаря -->
       <section id="calendar-view" class="placeholder" hidden>
@@ -375,6 +375,23 @@ body.entered {
 
         button.setAttribute("aria-current", "page");
       });
+      function updateLivingRoom() {
+  const hour = new Date().getHours();
+  const isDay = hour >= 6 && hour < 21;
+
+  document.getElementById("living-room").src = isDay
+    ? "living-room.jpg"
+    : "living-room-night.jpg";
+}
+
+updateLivingRoom();
+setInterval(updateLivingRoom, 60 * 1000);
+
+document.addEventListener("visibilitychange", function () {
+  if (!document.hidden) {
+    updateLivingRoom();
+  }
+});
     });
   </script>
 </body>
