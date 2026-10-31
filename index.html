@@ -5,262 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Добро пожаловать домой</title>
 
-  <style>
-    :root {
-      color-scheme: dark;
-      --cream: #fff1d2;
-      --gold: #e7be76;
-      --red: #8f2835;
-      --red-light: #b4404c;
-      --green: #173c32;
-      --dark: #101d1a;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      color: var(--cream);
-      font-family: Georgia, "Times New Roman", serif;
-      background:
-        radial-gradient(circle at 50% 10%, #315347 0%, transparent 45%),
-        linear-gradient(160deg, #162f28, #0c1715 75%);
-    }
-
-    button {
-      font: inherit;
-    }
-
-    button:focus-visible {
-      outline: 3px solid #fff1d2;
-      outline-offset: 4px;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-
-    .screen {
-      width: min(100%, 700px);
-      min-height: 100vh;
-      min-height: 100dvh;
-      margin: 0 auto;
-      padding: 24px 18px 30px;
-    }
-
-    /* Начальный экран */
-
-    .welcome-screen {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .welcome-card {
-      width: min(100%, 420px);
-      padding: 42px 24px;
-      border: 1px solid rgba(231, 190, 118, 0.55);
-      border-radius: 24px;
-      background: rgba(12, 29, 24, 0.8);
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-    }
-
-    .welcome-decoration {
-      font-size: 54px;
-      line-height: 1;
-    }
-
-    .welcome-card h1 {
-      margin: 20px 0 12px;
-      font-size: clamp(30px, 8vw, 44px);
-      color: var(--gold);
-    }
-
-    .welcome-card p {
-      margin: 0 0 28px;
-      font-size: 17px;
-      line-height: 1.5;
-    }
-
-    .knock-button {
-      padding: 15px 28px;
-      border: 1px solid #e6bd80;
-      border-radius: 999px;
-      color: #fff5e2;
-      background: linear-gradient(var(--red-light), var(--red));
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-    }
-
-    .knock-button:hover {
-      background: linear-gradient(#c34c58, #9f303d);
-    }
-
-    /* Экран после входа */
-
-    .home-screen {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .home-header {
-      padding: 12px 0 22px;
-    }
-
-    .ornament {
-      color: var(--gold);
-      font-size: 22px;
-      letter-spacing: 8px;
-    }
-
-    .home-header h1 {
-      margin: 10px 0 0;
-      color: var(--cream);
-      font-size: clamp(27px, 7vw, 42px);
-      line-height: 1.15;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .content {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .room-frame {
-      position: relative;
-      overflow: hidden;
-      padding: 8px;
-      border: 2px solid var(--gold);
-      border-radius: 20px;
-      background: #5b382b;
-      box-shadow:
-        0 0 0 4px #35271e,
-        0 14px 35px rgba(0, 0, 0, 0.5);
-    }
-
-    .room-frame img {
-      display: block;
-      width: 100%;
-      max-height: 60vh;
-      object-fit: contain;
-      border-radius: 11px;
-      background: #1d1714;
-    }
-
-    .room-caption {
-      margin: 18px 0 8px;
-      color: var(--gold);
-      font-size: 19px;
-      font-style: italic;
-    }
-
-    .placeholder {
-      padding: 50px 20px;
-      border: 1px solid rgba(231, 190, 118, 0.6);
-      border-radius: 20px;
-      background: rgba(12, 29, 24, 0.7);
-    }
-
-    .placeholder h2 {
-      margin: 0 0 12px;
-      color: var(--gold);
-      font-size: 28px;
-    }
-
-    .placeholder p {
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    /* Нижнее меню */
-
-    .navigation {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 28px;
-      padding: 18px 10px 12px;
-      border: 1px solid rgba(231, 190, 118, 0.45);
-      border-radius: 24px;
-      background: rgba(10, 26, 21, 0.85);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav-button {
-            display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 9px;
-      min-width: 0;
-      padding: 0;
-      border: 0;
-      color: var(--cream);
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .nav-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: clamp(60px, 17vw, 82px);
-      height: clamp(60px, 17vw, 82px);
-      padding: 8px;
-      overflow: hidden;
-      border: 2px solid rgba(231, 190, 118, 0.65);
-      border-radius: 50%;
-      background: #68313a;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .nav-button:hover .nav-icon,
-    .nav-button[aria-current="page"] .nav-icon {
-      transform: translateY(-3px);
-      border-color: #ffe1a0;
-      box-shadow: 0 0 14px rgba(231, 190, 118, 0.3);
-    }
-
-    .nav-icon img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .nav-label {
-      font-size: clamp(12px, 3.3vw, 15px);
-      line-height: 1.2;
-    }
-
-    @media (max-width: 360px) {
-      .screen {
-        padding-right: 12px;
-        padding-left: 12px;
-      }
-
-      .navigation {
-        gap: 4px;
-      }
-    }
-      /* Фон начального экрана */
-body {
-  background: #101d1a url("background.jpg") center center / cover no-repeat;
-}
-
-/* Фон после входа */
-body.entered {
-  background: #101d1a url("background01.jpg") center center / cover no-repeat;
-}
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -285,12 +31,16 @@ body.entered {
 
     <div class="content">
       <!-- Гостиная -->
-<section id="living-room-view" aria-label="Гостиная">
-  <div class="room-frame">
-    <img id="living-room" src="living-room.jpg" alt="Уютная праздничная гостиная">
-  </div>
-  <p class="room-caption">Как хорошо быть дома ✨</p>
-</section>
+      <section id="living-room-view" aria-label="Гостиная">
+        <div class="room-frame">
+          <img
+            id="living-room"
+            src="images/living-room.jpg"
+            alt="Уютная праздничная гостиная"
+          >
+        </div>
+        <p class="room-caption">Как хорошо быть дома ✨</p>
+      </section>
 
       <!-- Заглушка календаря -->
       <section id="calendar-view" class="placeholder" hidden>
@@ -312,7 +62,7 @@ body.entered {
         data-view="calendar-view"
       >
         <span class="nav-icon">
-          <img src="Presents.png" alt="">
+          <img src="images/Presents.png" alt="">
         </span>
         <span class="nav-label">Адвент-календарь</span>
       </button>
@@ -324,7 +74,7 @@ body.entered {
         aria-current="page"
       >
         <span class="nav-icon">
-          <img src="Fire.png" alt="">
+          <img src="images/Fire.png" alt="">
         </span>
         <span class="nav-label">Гостиная</span>
       </button>
@@ -335,64 +85,11 @@ body.entered {
         data-view="personal-room-view"
       >
         <span class="nav-icon">
-          <img src="home.png" alt="">
+          <img src="images/home.png" alt="">
         </span>
         <span class="nav-label">Личная комната</span>
       </button>
     </nav>
   </main>
-
-  <script>
-    const welcomeScreen = document.getElementById("welcome-screen");
-    const homeScreen = document.getElementById("home-screen");
-    const knockButton = document.getElementById("knock-button");
-    const navigationButtons = document.querySelectorAll(".nav-button");
-
-    const views = [
-      document.getElementById("living-room-view"),
-      document.getElementById("calendar-view"),
-      document.getElementById("personal-room-view")
-    ];
-
-    knockButton.addEventListener("click", function () {
-  welcomeScreen.hidden = true;
-  homeScreen.hidden = false;
-  document.body.classList.add("entered");
-  window.scrollTo(0, 0);
-});
-
-    navigationButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const selectedView = button.dataset.view;
-
-        views.forEach(function (view) {
-          view.hidden = view.id !== selectedView;
-        });
-
-        navigationButtons.forEach(function (navButton) {
-          navButton.removeAttribute("aria-current");
-        });
-
-        button.setAttribute("aria-current", "page");
-      });
-      function updateLivingRoom() {
-  const hour = new Date().getHours();
-  const isDay = hour >= 6 && hour < 16;
-
-  document.getElementById("living-room").src = isDay
-    ? "living-room.jpg"
-    : "living-room-night.jpg";
-}
-
-updateLivingRoom();
-setInterval(updateLivingRoom, 60 * 1000);
-
-document.addEventListener("visibilitychange", function () {
-  if (!document.hidden) {
-    updateLivingRoom();
-  }
-});
-    });
-  </script>
 </body>
 </html>
