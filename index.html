@@ -3,70 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Название страницы во вкладке браузера -->
   <title>Добро пожаловать домой</title>
 
+  <!-- Подключение файла с оформлением -->
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 
 <body>
-  <!-- Начальный экран -->
+  <!-- =========================================
+       НАЧАЛЬНЫЙ ЭКРАН
+       Здесь можно изменить приветствие и текст кнопки.
+       ========================================= -->
   <main id="welcome-screen" class="screen welcome-screen">
     <div class="welcome-card">
       <div class="welcome-decoration" aria-hidden="true"></div>
+
       <h1>Добро пожаловать!</h1>
       <p>За этой дверью вас ждёт уютный праздничный дом.</p>
+
       <button id="knock-button" class="knock-button" type="button">
         Постучать в дверь
       </button>
     </div>
   </main>
 
-  <!-- Экран после нажатия на кнопку -->
+  <!-- =========================================
+       ЭКРАН ПОСЛЕ ВХОДА В ДОМ
+       ========================================= -->
   <main id="home-screen" class="screen home-screen" hidden>
+    <!-- Заголовок внутри дома -->
     <header class="home-header">
       <div class="ornament" aria-hidden="true">✦ ❄ ✦</div>
       <h1>Добро пожаловать домой, чертята!</h1>
     </header>
 
     <div class="content">
-      <!-- Гостиная -->
+      <!-- =====================================
+           ГОСТИНАЯ
+           Дневное и ночное изображения переключаются
+           автоматически в файле script.js.
+           ===================================== -->
       <section id="living-room-view" aria-label="Гостиная">
         <div class="room-frame">
           <img
             id="living-room"
-            src="images/living-room.jpg"
+            src="living-room.jpg"
             alt="Уютная праздничная гостиная"
           >
         </div>
+
         <p class="room-caption">Как хорошо быть дома ✨</p>
       </section>
 
-      <!-- Заглушка календаря -->
+      <!-- =====================================
+           АДВЕНТ-КАЛЕНДАРЬ
+           Пока здесь находится заглушка.
+           ===================================== -->
       <section id="calendar-view" class="placeholder" hidden>
         <h2>Адвент-календарь</h2>
         <p>Этот раздел скоро появится.</p>
       </section>
 
-      <!-- Заглушка личной комнаты -->
+      <!-- =====================================
+           ЛИЧНАЯ КОМНАТА
+           Пока здесь находится заглушка.
+           ===================================== -->
       <section id="personal-room-view" class="placeholder" hidden>
         <h2>Личная комната</h2>
         <p>Этот раздел скоро появится.</p>
       </section>
     </div>
 
+    <!-- =========================================
+         НИЖНЕЕ МЕНЮ
+         Здесь можно изменить подписи и названия
+         файлов с иконками.
+         ========================================= -->
     <nav class="navigation" aria-label="Навигация по дому">
+      <!-- Кнопка адвент-календаря -->
       <button
         class="nav-button"
         type="button"
         data-view="calendar-view"
       >
         <span class="nav-icon">
-          <img src="images/Presents.png" alt="">
+          <img src="Presents.png" alt="">
         </span>
         <span class="nav-label">Адвент-календарь</span>
       </button>
 
+      <!-- Кнопка гостиной -->
       <button
         class="nav-button"
         type="button"
@@ -74,22 +102,26 @@
         aria-current="page"
       >
         <span class="nav-icon">
-          <img src="images/Fire.png" alt="">
+          <img src="Fire.png" alt="">
         </span>
         <span class="nav-label">Гостиная</span>
       </button>
 
+      <!-- Кнопка личной комнаты -->
       <button
         class="nav-button"
         type="button"
         data-view="personal-room-view"
       >
         <span class="nav-icon">
-          <img src="images/home.png" alt="">
+          <img src="home.png" alt="">
         </span>
         <span class="nav-label">Личная комната</span>
       </button>
     </nav>
   </main>
+
+  <!-- Подключение файла с поведением страницы -->
+  <script src="script.js"></script>
 </body>
 </html>
