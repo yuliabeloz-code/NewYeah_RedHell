@@ -1,5 +1,11 @@
+/* =========================================
+   ОСНОВНЫЕ ЦВЕТА
+   Здесь можно изменить общую цветовую палитру.
+   ========================================= */
+
 :root {
   color-scheme: dark;
+
   --cream: #fff1d2;
   --gold: #e7be76;
   --red: #8f2835;
@@ -7,6 +13,10 @@
   --green: #173c32;
   --dark: #101d1a;
 }
+
+/* =========================================
+   ОБЩИЕ НАСТРОЙКИ СТРАНИЦЫ
+   ========================================= */
 
 * {
   box-sizing: border-box;
@@ -18,27 +28,32 @@ body {
   min-height: 100dvh;
   color: var(--cream);
   font-family: Georgia, "Times New Roman", serif;
-  background: #101d1a url("images/background.jpg") center center / cover no-repeat;
+
+  /* Фон начального экрана */
+  background: #101d1a url("background.jpg") center center / cover no-repeat;
 }
 
-/* Фон после входа */
+/* Фон после входа в дом */
 body.entered {
-  background: #101d1a url("images/background01.jpg") center center / cover no-repeat;
+  background: #101d1a url("background01.jpg") center center / cover no-repeat;
 }
 
 button {
   font: inherit;
 }
 
+/* Рамка кнопки при навигации с клавиатуры */
 button:focus-visible {
   outline: 3px solid #fff1d2;
   outline-offset: 4px;
 }
 
+/* Скрытые разделы не занимают место на странице */
 [hidden] {
   display: none !important;
 }
 
+/* Общий размер и отступы экранов */
 .screen {
   width: min(100%, 700px);
   min-height: 100vh;
@@ -47,7 +62,9 @@ button:focus-visible {
   padding: 24px 18px 30px;
 }
 
-/* Начальный экран */
+/* =========================================
+   НАЧАЛЬНЫЙ ЭКРАН
+   ========================================= */
 
 .welcome-screen {
   display: flex;
@@ -56,6 +73,7 @@ button:focus-visible {
   text-align: center;
 }
 
+/* Карточка приветствия */
 .welcome-card {
   width: min(100%, 420px);
   padding: 42px 24px;
@@ -65,23 +83,27 @@ button:focus-visible {
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
 }
 
+/* Украшение над заголовком */
 .welcome-decoration {
   font-size: 54px;
   line-height: 1;
 }
 
+/* Заголовок карточки */
 .welcome-card h1 {
   margin: 20px 0 12px;
   font-size: clamp(30px, 8vw, 44px);
   color: var(--gold);
 }
 
+/* Текст карточки */
 .welcome-card p {
   margin: 0 0 28px;
   font-size: 17px;
   line-height: 1.5;
 }
 
+/* Кнопка «Постучать в дверь» */
 .knock-button {
   padding: 15px 28px;
   border: 1px solid #e6bd80;
@@ -93,11 +115,14 @@ button:focus-visible {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
+/* Цвет кнопки при наведении */
 .knock-button:hover {
   background: linear-gradient(#c34c58, #9f303d);
 }
 
-/* Экран после входа */
+/* =========================================
+   ЭКРАН ПОСЛЕ ВХОДА В ДОМ
+   ========================================= */
 
 .home-screen {
   display: flex;
@@ -105,16 +130,19 @@ button:focus-visible {
   text-align: center;
 }
 
+/* Верхняя часть с заголовком */
 .home-header {
   padding: 12px 0 22px;
 }
 
+/* Декоративные символы над заголовком */
 .ornament {
   color: var(--gold);
   font-size: 22px;
   letter-spacing: 8px;
 }
 
+/* Заголовок внутри дома */
 .home-header h1 {
   margin: 10px 0 0;
   color: var(--cream);
@@ -123,6 +151,7 @@ button:focus-visible {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
+/* Область с содержимым выбранного раздела */
 .content {
   display: flex;
   flex: 1;
@@ -130,6 +159,11 @@ button:focus-visible {
   justify-content: center;
 }
 
+/* =========================================
+   ГОСТИНАЯ
+   ========================================= */
+
+/* Рамка изображения */
 .room-frame {
   position: relative;
   overflow: hidden;
@@ -142,6 +176,7 @@ button:focus-visible {
     0 14px 35px rgba(0, 0, 0, 0.5);
 }
 
+/* Размер и отображение изображения гостиной */
 .room-frame img {
   display: block;
   width: 100%;
@@ -151,6 +186,7 @@ button:focus-visible {
   background: #1d1714;
 }
 
+/* Подпись под изображением */
 .room-caption {
   margin: 18px 0 8px;
   color: var(--gold);
@@ -158,9 +194,14 @@ button:focus-visible {
   font-style: italic;
 }
 
+/* =========================================
+   ЗАГЛУШКИ РАЗДЕЛОВ
+   Используются для календаря и личной комнаты.
+   ========================================= */
+
 .placeholder {
   padding: 50px 20px;
-  border: 1px solid rgba(231, 190, 118, 0.6);
+    border: 1px solid rgba(231, 190, 118, 0.6);
   border-radius: 20px;
   background: rgba(12, 29, 24, 0.7);
 }
@@ -176,8 +217,11 @@ button:focus-visible {
   line-height: 1.5;
 }
 
-/* Нижнее меню */
+/* =========================================
+   НИЖНЕЕ МЕНЮ
+   ========================================= */
 
+/* Общая панель меню */
 .navigation {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -190,6 +234,7 @@ button:focus-visible {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* Каждая кнопка меню */
 .nav-button {
   display: flex;
   flex-direction: column;
@@ -203,6 +248,7 @@ button:focus-visible {
   cursor: pointer;
 }
 
+/* Круглый фон и рамка иконки */
 .nav-icon {
   display: flex;
   align-items: center;
@@ -217,6 +263,7 @@ button:focus-visible {
   transition: transform 0.2s, border-color 0.2s;
 }
 
+/* Выделение выбранной кнопки и кнопки при наведении */
 .nav-button:hover .nav-icon,
 .nav-button[aria-current="page"] .nav-icon {
   transform: translateY(-3px);
@@ -224,17 +271,23 @@ button:focus-visible {
   box-shadow: 0 0 14px rgba(231, 190, 118, 0.3);
 }
 
+/* Изображение внутри иконки */
 .nav-icon img {
   display: block;
   width: 100%;
-    height: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
+/* Подписи под иконками */
 .nav-label {
   font-size: clamp(12px, 3.3vw, 15px);
   line-height: 1.2;
 }
+
+/* =========================================
+   НАСТРОЙКИ ДЛЯ УЗКИХ ЭКРАНОВ
+   ========================================= */
 
 @media (max-width: 360px) {
   .screen {
