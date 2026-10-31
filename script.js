@@ -1,5 +1,5 @@
 /* =========================================
-   ПОЛУЧАЕМ ЭЛЕМЕНТЫ СТРАНИЦЫ
+   ЭЛЕМЕНТЫ СТРАНИЦЫ
    ========================================= */
 
 const welcomeScreen = document.getElementById("welcome-screen");
@@ -7,7 +7,10 @@ const homeScreen = document.getElementById("home-screen");
 const knockButton = document.getElementById("knock-button");
 const navigationButtons = document.querySelectorAll(".nav-button");
 
-/* Разделы, между которыми переключается нижнее меню */
+/* Заголовок «Добро пожаловать домой, чертята!» */
+const homeTitle = document.querySelector(".home-header h1");
+
+/* Разделы нижнего меню */
 const views = [
   document.getElementById("living-room-view"),
   document.getElementById("calendar-view"),
@@ -17,11 +20,8 @@ const views = [
 /* =========================================
    ВХОД В ДОМ
 
-   После нажатия кнопки:
-   1. Скрывается начальный экран.
-   2. Открывается экран дома.
-   3. Меняется фон.
-   4. Страница прокручивается наверх.
+   Скрываем начальный экран, показываем дом,
+   меняем фон и прокручиваем страницу наверх.
    ========================================= */
 
 knockButton.addEventListener("click", function () {
@@ -33,25 +33,28 @@ knockButton.addEventListener("click", function () {
 });
 
 /* =========================================
-   ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ НИЖНЕГО МЕНЮ
+   ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
+
+   Заголовок показывается только в гостиной.
    ========================================= */
 
 navigationButtons.forEach(function (button) {
   button.addEventListener("click", function () {
-    /* Название раздела берётся из data-view кнопки */
     const selectedView = button.dataset.view;
 
-    /* Показываем выбранный раздел и скрываем остальные */
+    /* Показываем выбранный раздел */
     views.forEach(function (view) {
       view.hidden = view.id !== selectedView;
     });
 
-    /* Убираем отметку активной страницы со всех кнопок */
+    /* Скрываем заголовок везде, кроме гостиной */
+    homeTitle.hidden = selectedView !== "living-room-view";
+
+    /* Обновляем отметку активной кнопки */
     navigationButtons.forEach(function (navButton) {
       navButton.removeAttribute("aria-current");
     });
 
-    /* Отмечаем выбранную кнопку */
     button.setAttribute("aria-current", "page");
   });
 });
@@ -59,25 +62,24 @@ navigationButtons.forEach(function (button) {
 /* =========================================
    ДНЕВНОЕ И НОЧНОЕ ИЗОБРАЖЕНИЕ ГОСТИНОЙ
 
-   Дневное изображение: с 06:00 до 15:59.
-   Ночное изображение: с 16:00 до 05:59.
+   День: с 06:00 до 15:59.
+   Ночь: с 16:00 до 05:59.
 
-   Время определяется по часам устройства посетителя.
-   Чтобы изменить время переключения, поменяйте
-   числа 6 и 16 ниже.
+   Чтобы изменить время переключения,
+   поменяйте числа 6 и 16.
    ========================================= */
 
 function updateLivingRoom() {
   const hour = new Date().getHours();
   const isDay = hour >= 6 && hour < 16;
 
-  /* Здесь можно изменить названия файлов изображений */
+  /* Здесь можно изменить названия изображений */
   document.getElementById("living-room").src = isDay
     ? "living-room.jpg"
     : "living-room-night.jpg";
 }
 
-/* Устанавливаем нужное изображение при открытии страницы */
+/* Выбираем изображение при открытии страницы */
 updateLivingRoom();
 
 /* Проверяем время каждую минуту */
