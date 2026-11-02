@@ -1,16 +1,22 @@
+index.html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Название страницы во вкладке браузера -->
   <title>Добро пожаловать домой</title>
 
+  <!-- Подключение файла с оформлением -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- НАЧАЛЬНЫЙ ЭКРАН -->
+  <!-- =========================================
+       НАЧАЛЬНЫЙ ЭКРАН
+       Здесь можно изменить приветствие и текст кнопки.
+       ========================================= -->
   <main id="welcome-screen" class="screen welcome-screen">
     <div class="welcome-card">
       <div class="welcome-decoration" aria-hidden="true"></div>
@@ -24,15 +30,22 @@
     </div>
   </main>
 
-  <!-- ЭКРАН ПОСЛЕ ВХОДА -->
+  <!-- =========================================
+       ЭКРАН ПОСЛЕ ВХОДА В ДОМ
+       ========================================= -->
   <main id="home-screen" class="screen home-screen" hidden>
+    <!-- Заголовок внутри дома -->
     <header class="home-header">
       <div class="ornament" aria-hidden="true">✦ ❄ ✦</div>
       <h1>Добро пожаловать домой, чертята!</h1>
     </header>
 
     <div class="content">
-      <!-- ГОСТИНАЯ -->
+      <!-- =====================================
+           ГОСТИНАЯ
+           Дневное и ночное изображения переключаются
+           автоматически в файле script.js.
+           ===================================== -->
       <section id="living-room-view" aria-label="Гостиная">
         <div class="room-frame">
           <img
@@ -45,26 +58,32 @@
         <p class="room-caption">Как хорошо быть дома ✨</p>
       </section>
 
-      <!-- АДВЕНТ-КАЛЕНДАРЬ -->
+      <!-- =====================================
+           АДВЕНТ-КАЛЕНДАРЬ
+           Пока здесь находится заглушка.
+           ===================================== -->
       <section id="calendar-view" class="placeholder" hidden>
         <h2>Адвент-календарь</h2>
         <p>Этот раздел скоро появится.</p>
       </section>
 
-      <!-- ЛИЧНАЯ КОМНАТА -->
+      <!-- =====================================
+           ЛИЧНАЯ КОМНАТА
+           Пока здесь находится заглушка.
+           ===================================== -->
       <section id="personal-room-view" class="placeholder" hidden>
         <h2>Личная комната</h2>
         <p>Этот раздел скоро появится.</p>
-
-        <!-- Здесь будет отображаться результат сохранения -->
-        <p id="user-status" role="status">
-          Данные пользователя ещё не загружены.
-        </p>
       </section>
     </div>
 
-    <!-- НИЖНЕЕ МЕНЮ -->
+    <!-- =========================================
+         НИЖНЕЕ МЕНЮ
+         Здесь можно изменить подписи и названия
+         файлов с иконками.
+         ========================================= -->
     <nav class="navigation" aria-label="Навигация по дому">
+      <!-- Кнопка адвент-календаря -->
       <button
         class="nav-button"
         type="button"
@@ -76,6 +95,7 @@
         <span class="nav-label">Адвент-календарь</span>
       </button>
 
+      <!-- Кнопка гостиной -->
       <button
         class="nav-button"
         type="button"
@@ -88,6 +108,7 @@
         <span class="nav-label">Гостиная</span>
       </button>
 
+      <!-- Кнопка личной комнаты -->
       <button
         class="nav-button"
         type="button"
@@ -101,8 +122,7 @@
     </nav>
   </main>
 
-  <!-- Библиотека Telegram должна подключаться раньше script.js -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Подключение файла с поведением страницы -->
   <script src="script.js"></script>
 </body>
 </html>
