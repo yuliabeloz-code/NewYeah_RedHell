@@ -310,10 +310,10 @@ button:focus-visible {
     Измените эти значения, чтобы поставить
     ёлку в нужное место гостиной.
   */
-  left: 1%;
-  top: 10%;
-  width: 35%;
-  height: 95%;
+  left: 7%;
+  top: 38%;
+  width: 25%;
+  height: 50%;
 
   background-image: url("Tree.png");
   background-position: center;
