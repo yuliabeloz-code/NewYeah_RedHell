@@ -298,4 +298,77 @@ button:focus-visible {
   .navigation {
     gap: 4px;
   }
+}/* =========================================
+   ЁЛКА ПОВЕРХ ИЗОБРАЖЕНИЯ ГОСТИНОЙ
+   ========================================= */
+
+.tree-overlay {
+  position: absolute;
+
+  /*
+    Положение и размер ёлки.
+    Измените эти значения, чтобы поставить
+    ёлку в нужное место гостиной.
+  */
+  left: 60%;
+  top: 20%;
+  width: 35%;
+  height: 75%;
+
+  background-image: url("Tree.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  /* Слой не мешает нажимать на элементы страницы */
+  pointer-events: none;
+}
+
+/* Загруженная игрушка */
+.tree-toy {
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  transform: translate(-50%, -50%);
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+}
+
+/* =========================================
+   БЛОК «УКРАСИТЬ ЁЛКУ»
+   ========================================= */
+
+.decoration-panel {
+  margin-top: 18px;
+  padding: 18px 16px;
+  border: 1px solid rgba(231, 190, 118, 0.7);
+  border-radius: 20px;
+  background: rgba(12, 45, 33, 0.9);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.decorate-button {
+  padding: 13px 24px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--cream);
+  background: linear-gradient(#285c46, #173c32);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+}
+
+.decorate-button:hover {
+  background: linear-gradient(#347454, #20503d);
+}
+
+.decoration-message {
+  margin: 12px 0 0;
+  color: var(--gold);
+  font-size: 14px;
+  line-height: 1.4;
 }
