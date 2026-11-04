@@ -219,12 +219,10 @@ toyFileInput.addEventListener("change", function () {
    ========================================= */
 
 /*
-  Список пластинок.
-
-  image — изображение пластинки.
+  Укажите свои названия и пути к файлам:
+  title — название песни;
+  image — изображение пластинки;
   audio — музыкальный файл.
-
-  Замените названия файлов и песен на свои.
 */
 const musicTracks = [
   {
@@ -244,57 +242,133 @@ const musicTracks = [
   }
 ];
 
-/* Кнопка рядом с кнопкой украшения ёлки */
+/* Кнопка открытия плейлиста */
 const musicButton = document.createElement("button");
 musicButton.type = "button";
 musicButton.className = "music-button";
 musicButton.textContent = "Послушать музыку";
-musicButton.setAttribute("aria-expanded", "false");
+musicButton.setAttribute("aria-haspopup", "dialog");
 musicButton.setAttribute("aria-controls", "music-menu");
+musicButton.setAttribute("aria-expanded", "false");
 
-/* Добавляем кнопку перед сообщением об игрушках */
 decorationPanel.insertBefore(musicButton, decorationMessage);
 
-/* Меню с пластинками */
-const musicMenu = document.createElement("div");
+/* Окно плейлиста поверх страницы */
+const musicMenu = document.createElement("dialog");
 musicMenu.id = "music-menu";
 musicMenu.className = "music-menu";
-musicMenu.hidden = true;
+musicMenu.setAttribute("aria-labelledby", "music-menu-title");
+
+/* Заголовок и кнопка закрытия */
+const musicHeader = document.createElement("div");
+musicHeader.className = "music-menu-header";
 
 const musicTitle = document.createElement("h2");
-musicTitle.textContent = "Выберите пластинку";
+musicTitle.id = "music-menu-title";
+musicTitle.textContent = "Плейлист красного клана";
+
+const closeMusicButton = document.createElement("button");
+closeMusicButton.type = "button";
+closeMusicButton.className = "music-close";
+closeMusicButton.textContent = "×";
+closeMusicButton.setAttribute("aria-label", "Закрыть плейлист");
+
+musicHeader.appendChild(musicTitle);
+musicHeader.appendChild(closeMusicButton);
+
+/* Стрелки и список пластинок */
+const recordsCarousel = document.createElement("div");
+recordsCarousel.className = "records-carousel";
+
+const previousButton = document.createElement("button");
+previousButton.type = "button";
+previousButton.className = "records-arrow";
+previousButton.textContent = "‹";
+previousButton.setAttribute("aria-label", "Листать пластинки влево");
 
 const recordsList = document.createElement("div");
 recordsList.className = "records-list";
+recordsList.setAttribute("aria-label", "Пластинки");
 
-/* Плеер с кнопками паузы и регулировкой громкости */
+const nextButton = document.createElement("button");
+nextButton.type = "button";
+nextButton.className = "records-arrow";
+nextButton.textContent = "›";
+nextButton.setAttribute("aria-label", "Листать пластинки вправо");
+
+recordsCarousel.appendChild(previousButton);
+recordsCarousel.appendChild(recordsList);
+recordsCarousel.appendChild(nextButton);
+
+/* Плеер */
 const musicPlayer = document.createElement("audio");
 musicPlayer.className = "music-player";
 musicPlayer.controls = true;
 musicPlayer.preload = "none";
+musicPlayer.setAttribute("aria-label", "Музыкальный плеер");
 
 const musicMessage = document.createElement("p");
 musicMessage.className = "music-message";
 musicMessage.setAttribute("role", "status");
 musicMessage.textContent = "Выберите пластинку, чтобы включить музыку.";
 
-musicMenu.appendChild(musicTitle);
-musicMenu.appendChild(recordsList);
+musicMenu.appendChild(musicHeader);
+musicMenu.appendChild(recordsCarousel);
 musicMenu.appendChild(musicPlayer);
 musicMenu.appendChild(musicMessage);
 
-decorationPanel.appendChild(musicMenu);
+document.body.appendChild(musicMenu);
 
-/* Открываем и закрываем меню */
+/* Открытие и закрытие окна */
 musicButton.addEventListener("click", function () {
-  const opening = musicMenu.hidden;
-
-  musicMenu.hidden = !opening;
-  musicButton.setAttribute("aria-expanded", String(opening));
+  if (!musicMenu.open) {
+    musicMenu.showModal();
+    musicButton.setAttribute("aria-expanded", "true");
+    updateRecordsArrows();
+  }
 });
 
-/* Создаём кнопки-пластинки */
+closeMusicButton.addEventListener("click", function () {
+  musicMenu.close();
+});
+
+/* Срабатывает и при закрытии крестиком, и при нажатии Escape */
+musicMenu.addEventListener("close", function () {
+  musicButton.setAttribute("aria-expanded", "false");
+  musicButton.focus();
+});
+
+/* Прокрутка пластинок */
+function updateRecordsArrows() {
+  const maxScroll = recordsList.scrollWidth - recordsList.clientWidth;
+
+  previousButton.disabled = recordsList.scrollLeft <= 1;
+  nextButton.disabled = recordsList.scrollLeft >= maxScroll - 1;
+}
+previousButton.addEventListener("click", function () {
+  recordsList.scrollBy({
+    left: -150,
+    behavior: "smooth"
+  });
+});
+
+nextButton.addEventListener("click", function () {
+  recordsList.scrollBy({
+    left: 150,
+    behavior: "smooth"
+  });
+});
+
+recordsList.addEventListener("scroll", updateRecordsArrows);
+window.addEventListener("resize", function () {
+  if (musicMenu.open) {
+    updateRecordsArrows();
+  }
+});
+
+/* Создание кнопок-пластинок */
 const recordButtons = [];
+let selectedTrack = null;
 
 musicTracks.forEach(function (track) {
   const recordButton = document.createElement("button");
@@ -318,18 +392,30 @@ musicTracks.forEach(function (track) {
     });
 
     recordButton.setAttribute("aria-pressed", "true");
+    selectedTrack = track;
 
     musicPlayer.src = track.audio;
-    musicMessage.textContent = "Сейчас играет: " + track.title;
+    musicMessage.textContent = "Запуск: " + track.title;
 
-    musicPlayer.play().catch(function () {
+    musicPlayer.play().catch(function (error) {
+      /* Не показываем ошибку, если пользователь уже выбрал другую песню */
+      if (selectedTrack !== track || error.name === "AbortError") {
+        return;
+      }
+
       musicMessage.textContent =
-        "Не удалось включить музыку. Проверьте музыкальный файл.";
+        "Не удалось включить музыку. Проверьте путь к файлу.";
     });
   });
 
   recordsList.appendChild(recordButton);
   recordButtons.push(recordButton);
+});
+
+musicPlayer.addEventListener("play", function () {
+  if (selectedTrack) {
+    musicMessage.textContent = "Сейчас играет: " + selectedTrack.title;
+  }
 });
 
 musicPlayer.addEventListener("error", function () {
