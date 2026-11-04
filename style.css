@@ -216,6 +216,12 @@ button:focus-visible {
   margin: 0;
   line-height: 1.5;
 }
+body.entered.personal-room-background {
+  background-image: url("bedroom.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 /* =========================================
    НИЖНЕЕ МЕНЮ
