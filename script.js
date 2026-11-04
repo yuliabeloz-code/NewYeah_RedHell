@@ -40,6 +40,11 @@ navigationButtons.forEach(function (button) {
   button.addEventListener("click", function () {
     const selectedView = button.dataset.view;
 
+     document.body.classList.toggle(
+  "personal-room-background",
+  selectedView === "personal-room-view"
+);
+
     views.forEach(function (view) {
       view.hidden = view.id !== selectedView;
     });
