@@ -372,3 +372,112 @@ button:focus-visible {
   font-size: 14px;
   line-height: 1.4;
 }
+/* =========================================
+   МУЗЫКА В ГОСТИНОЙ
+   ========================================= */
+
+/* Размещаем кнопки рядом */
+.decoration-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Сообщение об игрушках — под кнопками */
+.decoration-message {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+}
+
+/* Кнопка музыки */
+.music-button {
+  padding: 13px 24px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--cream);
+  background: linear-gradient(#8f4950, #68313a);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+}
+
+.music-button:hover {
+  background: linear-gradient(#a95a60, #80404a);
+}
+
+/* Меню пластинок */
+.music-menu {
+  width: 100%;
+  margin-top: 8px;
+  padding: 18px 12px;
+  border: 1px solid rgba(231, 190, 118, 0.45);
+  border-radius: 16px;
+  background: rgba(10, 26, 21, 0.8);
+}
+
+.music-menu h2 {
+  margin: 0 0 16px;
+  color: var(--gold);
+  font-size: 21px;
+}
+
+/* Список пластинок */
+.records-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.record-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 110px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: var(--cream);
+  background: transparent;
+  cursor: pointer;
+}
+
+.record-button img {
+  display: block;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.record-button span {
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.record-button:hover img {
+  transform: scale(1.06);
+}
+
+/* Выбранная пластинка */
+.record-button[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: rgba(231, 190, 118, 0.1);
+}
+
+.music-player {
+  display: block;
+  width: min(100%, 350px);
+  margin: 18px auto 0;
+}
+
+.music-message {
+  margin: 10px 0 0;
+  color: var(--gold);
+  font-size: 14px;
+  line-height: 1.4;
+}
