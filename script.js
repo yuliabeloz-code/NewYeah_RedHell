@@ -214,3 +214,125 @@ toyFileInput.addEventListener("change", function () {
 
   testImage.src = imageUrl;
 });
+/* =========================================
+   МУЗЫКА В ГОСТИНОЙ
+   ========================================= */
+
+/*
+  Список пластинок.
+
+  image — изображение пластинки.
+  audio — музыкальный файл.
+
+  Замените названия файлов и песен на свои.
+*/
+const musicTracks = [
+  {
+    title: "Новогодняя песня",
+    image: "record-1.png",
+    audio: "song-1.mp3"
+  },
+  {
+    title: "Зимний вечер",
+    image: "record-2.png",
+    audio: "song-2.mp3"
+  },
+  {
+    title: "Музыка у камина",
+    image: "record-3.png",
+    audio: "song-3.mp3"
+  }
+];
+
+/* Кнопка рядом с кнопкой украшения ёлки */
+const musicButton = document.createElement("button");
+musicButton.type = "button";
+musicButton.className = "music-button";
+musicButton.textContent = "Послушать музыку";
+musicButton.setAttribute("aria-expanded", "false");
+musicButton.setAttribute("aria-controls", "music-menu");
+
+/* Добавляем кнопку перед сообщением об игрушках */
+decorationPanel.insertBefore(musicButton, decorationMessage);
+
+/* Меню с пластинками */
+const musicMenu = document.createElement("div");
+musicMenu.id = "music-menu";
+musicMenu.className = "music-menu";
+musicMenu.hidden = true;
+
+const musicTitle = document.createElement("h2");
+musicTitle.textContent = "Выберите пластинку";
+
+const recordsList = document.createElement("div");
+recordsList.className = "records-list";
+
+/* Плеер с кнопками паузы и регулировкой громкости */
+const musicPlayer = document.createElement("audio");
+musicPlayer.className = "music-player";
+musicPlayer.controls = true;
+musicPlayer.preload = "none";
+
+const musicMessage = document.createElement("p");
+musicMessage.className = "music-message";
+musicMessage.setAttribute("role", "status");
+musicMessage.textContent = "Выберите пластинку, чтобы включить музыку.";
+
+musicMenu.appendChild(musicTitle);
+musicMenu.appendChild(recordsList);
+musicMenu.appendChild(musicPlayer);
+musicMenu.appendChild(musicMessage);
+
+decorationPanel.appendChild(musicMenu);
+
+/* Открываем и закрываем меню */
+musicButton.addEventListener("click", function () {
+  const opening = musicMenu.hidden;
+
+  musicMenu.hidden = !opening;
+  musicButton.setAttribute("aria-expanded", String(opening));
+});
+
+/* Создаём кнопки-пластинки */
+const recordButtons = [];
+
+musicTracks.forEach(function (track) {
+  const recordButton = document.createElement("button");
+  recordButton.type = "button";
+  recordButton.className = "record-button";
+  recordButton.setAttribute("aria-pressed", "false");
+
+  const recordImage = document.createElement("img");
+  recordImage.src = track.image;
+  recordImage.alt = "";
+
+  const recordName = document.createElement("span");
+  recordName.textContent = track.title;
+
+  recordButton.appendChild(recordImage);
+  recordButton.appendChild(recordName);
+
+  recordButton.addEventListener("click", function () {
+    recordButtons.forEach(function (button) {
+      button.setAttribute("aria-pressed", "false");
+    });
+
+    recordButton.setAttribute("aria-pressed", "true");
+
+    musicPlayer.src = track.audio;
+    musicMessage.textContent = "Сейчас играет: " + track.title;
+
+    musicPlayer.play().catch(function () {
+      musicMessage.textContent =
+        "Не удалось включить музыку. Проверьте музыкальный файл.";
+    });
+  });
+
+  recordsList.appendChild(recordButton);
+  recordButtons.push(recordButton);
+});
+
+musicPlayer.addEventListener("error", function () {
+  musicMessage.textContent =
+    "Не удалось загрузить песню. Проверьте путь к файлу.";
+});
