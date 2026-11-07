@@ -1,0 +1,107 @@
+/* =========================================
+   ЛИЧНАЯ КОМНАТА
+   ========================================= */
+
+/*
+  Слой расположен относительно окна браузера.
+  Он не меняет размер страницы и не перекрывает
+  нажатия на пустых участках.
+*/
+.personal-room-buttons {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Общий вид кнопок */
+.personal-room-button {
+  position: absolute;
+
+  /*
+    МАСШТАБ КНОПОК
+
+    90px  — минимальная ширина;
+    12vw  — ширина относительно окна;
+    130px — максимальная ширина.
+
+    Измените эти значения, чтобы сделать
+    все кнопки больше или меньше.
+  */
+  width: clamp(90px, 12vw, 130px);
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+
+  color: white;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: auto;
+
+  /*
+    Точка положения кнопки находится по центру её верхнего края.
+  */
+  transform: translateX(-50%);
+}
+
+.personal-room-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.personal-room-button span {
+  display: block;
+  margin-top: 6px;
+
+  font-size: 14px;
+  line-height: 1.25;
+
+  /* Чтобы подпись была заметнее на фоне */
+  text-shadow: 0 1px 4px #000;
+}
+
+/* Обозначение кнопки при управлении с клавиатуры */
+.personal-room-button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+/* =========================================
+   ПОЛОЖЕНИЕ КНОПОК
+   ========================================= */
+
+/*
+  left — положение слева направо:
+  0% — левый край окна, 100% — правый.
+
+  top — положение сверху вниз:
+  0% — верхний край окна, 100% — нижний.
+
+  Меняйте значения отдельно для каждой кнопки.
+*/
+
+.personal-room-button--games {
+  left: 20%;
+  top: 30%;
+}
+
+.personal-room-button--owl {
+  left: 50%;
+  top: 30%;
+}
+
+.personal-room-button--space {
+  left: 80%;
+  top: 30%;
+}
+
+/*
+  Если нужно изменить размер только одной кнопки,
+  добавьте в её блок, например:
+
+  width: 100px;
+*/
