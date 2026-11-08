@@ -620,3 +620,27 @@ body.entered.personal-room-background {
   background: transparent !important;
   box-shadow: none !important;
 }
+/* Убираем сообщение о разделе, который скоро появится */
+document.querySelectorAll("p, div, span").forEach(function (element) {
+  const text = element.textContent.trim().toLowerCase();
+
+  const isMessage =
+    text === "этот раздел скоро появится" ||
+    text === "этот раздел скоро появиться" ||
+    text === "этот раздел скоро появится." ||
+    text === "этот раздел скоро появиться.";
+
+  if (!isMessage) {
+    return;
+  }
+
+  /* Не скрываем крупные контейнеры страницы */
+  if (
+    element.id ||
+    element.querySelector("button, a, input, nav, section")
+  ) {
+    return;
+  }
+
+  element.hidden = true;
+});
