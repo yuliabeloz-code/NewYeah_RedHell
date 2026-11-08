@@ -398,21 +398,39 @@ body.entered.personal-room-background {
 }
 
 /* Кнопка открытия плейлиста */
+
+/* Кнопка с изображением Music.png */
 .music-button {
-  padding: 13px 24px;
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  color: var(--cream);
-  background: linear-gradient(#8f4950, #68313a);
-  font-weight: bold;
+  /* Настройка положения */
+  --music-move-x: 0px; /* Вправо: 20px; влево: -20px */
+  --music-move-y: 0px; /* Вниз: 20px; вверх: -20px */
+
+  display: inline-block;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent url("Music.png") center / contain no-repeat;
+  box-shadow: none;
+  font-size: 0;
   cursor: pointer;
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+
+  /* Сдвиг кнопки вместе с областью нажатия */
+  transform: translate(var(--music-move-x), var(--music-move-y));
 }
 
 .music-button:hover {
-  background: linear-gradient(#a95a60, #80404a);
+  background: transparent url("Music.png") center / contain no-repeat;
+  opacity: 0.85;
 }
 
+.music-button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
 /* Окно плейлиста */
 .music-menu {
   box-sizing: border-box;
