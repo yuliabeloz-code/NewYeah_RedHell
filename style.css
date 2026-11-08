@@ -402,8 +402,8 @@ body.entered.personal-room-background {
 /* Кнопка с изображением Music.png */
 .music-button {
   /* Настройка положения */
-  --music-move-x: 30px; /* Вправо: 20px; влево: -20px */
-  --music-move-y: 30px; /* Вниз: 20px; вверх: -20px */
+  --music-move-x: 35px; /* Вправо: 20px; влево: -20px */
+  --music-move-y: 50px; /* Вниз: 20px; вверх: -20px */
 
   display: inline-block;
   flex: 0 0 auto;
