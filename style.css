@@ -400,13 +400,27 @@ body.entered.personal-room-background {
 /* Кнопка открытия плейлиста */
 
 /* Кнопка с изображением Music.png */
-.music-button {
-  /* Настройка положения */
-  --music-move-x: 40px; /* Вправо: 20px; влево: -20px */
-  --music-move-y: 80px; /* Вниз: 20px; вверх: -20px */
+  position: relative;
+}
 
-  display: inline-block;
-  flex: 0 0 auto;
+/* Кнопка музыки поверх гостиной */
+.music-button {
+  /*
+    Положение кнопки относительно изображения гостиной.
+    Меняйте эти значения:
+
+    left: больше — правее, меньше — левее;
+    top: больше — ниже, меньше — выше.
+  */
+  left: 75%;
+  top: 65%;
+
+  position: absolute;
+  z-index: 2;
+
+  /* Указанная точка соответствует центру кнопки */
+  transform: translate(-50%, -50%);
+
   box-sizing: border-box;
   width: 80px;
   height: 80px;
@@ -417,11 +431,7 @@ body.entered.personal-room-background {
   box-shadow: none;
   font-size: 0;
   cursor: pointer;
-
-  /* Сдвиг кнопки вместе с областью нажатия */
-  transform: translate(var(--music-move-x), var(--music-move-y));
 }
-
 .music-button:hover {
   background: transparent url("Music.png") center / contain no-repeat;
   opacity: 0.85;
@@ -430,7 +440,6 @@ body.entered.personal-room-background {
 .music-button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 4px;
-}
 /* Окно плейлиста */
 .music-menu {
   box-sizing: border-box;
