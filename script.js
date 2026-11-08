@@ -493,34 +493,6 @@ musicPlayer.addEventListener("error", function () {
   musicMessage.textContent =
     "Не удалось загрузить песню. Проверьте путь к файлу.";
 });
-/* =========================================
-   СКРЫВАЕМ НАЗВАНИЯ РАЗДЕЛОВ
-   ========================================= */
-
-const headingsToHide = [
-  {
-    view: document.getElementById("calendar-view"),
-    title: "адвент-календарь"
-  },
-  {
-    view: document.getElementById("personal-room-view"),
-    title: "личная комната"
-  }
-];
-
-headingsToHide.forEach(function (item) {
-  if (!item.view) {
-    return;
-  }
-
-  item.view.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (heading) {
-    const text = heading.textContent.trim().toLowerCase();
-
-    if (text === item.title) {
-      heading.hidden = true;
-    }
-  });
-});
 
 /* =========================================
    УБИРАЕМ ФОН ПОД КНОПКАМИ НАВИГАЦИИ
