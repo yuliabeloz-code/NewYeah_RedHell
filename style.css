@@ -620,3 +620,11 @@ body.entered.personal-room-background {
   background: transparent !important;
   box-shadow: none !important;
 }
+#calendar-view,
+#personal-room-view {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  min-height: 0;
+}
