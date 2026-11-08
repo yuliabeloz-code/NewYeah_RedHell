@@ -185,7 +185,7 @@ toyFileInput.hidden = true;
 const decorationMessage = document.createElement("p");
 decorationMessage.className = "decoration-message";
 decorationMessage.setAttribute("role", "status");
-decorationMessage.textContent =
+decorationMessage.textContent = ""
 
 decorationPanel.appendChild(decorateButton);
 decorationPanel.appendChild(toyFileInput);
