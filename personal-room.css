@@ -87,18 +87,19 @@
 .personal-room-button--games {
   left: 20%;
   top: 54%;
-   wodth: 120px
+   width: 90px
 }
 
 .personal-room-button--owl {
   left: 92%;
   top: 48%;
+   width: 90px
 }
 
 .personal-room-button--space {
   left: 62%;
-  top: 50%;
-  width: 180px
+  top: 40%;
+  width: 130px
 }
 
 /*
