@@ -181,19 +181,6 @@ toyFileInput.type = "file";
 toyFileInput.accept = "image/png,image/webp";
 toyFileInput.hidden = true;
 
-/* Подсказка и сообщения об ошибках */
-const decorationMessage = document.createElement("p");
-decorationMessage.className = "decoration-message";
-decorationMessage.setAttribute("role", "status");
-decorationMessage.textContent =
-  "Выберите игрушку в формате PNG или WebP с прозрачным фоном.";
-
-decorationPanel.appendChild(decorateButton);
-decorationPanel.appendChild(toyFileInput);
-decorationPanel.appendChild(decorationMessage);
-
-roomFrame.insertAdjacentElement("afterend", decorationPanel);
-
 /*
   Места для игрушек на ёлке.
 
