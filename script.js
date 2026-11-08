@@ -24,14 +24,80 @@ const views = [
    ВХОД В ДОМ
    ========================================= */
 
+/* =========================================
+   ВВОД ИМЕНИ И ВХОД В ДОМ
+   ========================================= */
+
+/* Создаём поле имени перед кнопкой входа */
+const nameField = document.createElement("div");
+nameField.className = "name-field";
+
+const nameLabel = document.createElement("label");
+nameLabel.htmlFor = "visitor-name";
+nameLabel.textContent = "Как тебя зовут?";
+
+const nameInput = document.createElement("input");
+nameInput.id = "visitor-name";
+nameInput.className = "name-input";
+nameInput.type = "text";
+nameInput.placeholder = "Введи своё имя";
+nameInput.maxLength = 40;
+nameInput.autocomplete = "given-name";
+nameInput.setAttribute("aria-describedby", "name-message");
+
+const nameMessage = document.createElement("p");
+nameMessage.id = "name-message";
+nameMessage.className = "name-message";
+nameMessage.setAttribute("role", "status");
+
+nameField.appendChild(nameLabel);
+nameField.appendChild(nameInput);
+nameField.appendChild(nameMessage);
+
+knockButton.insertAdjacentElement("beforebegin", nameField);
+
+/* Подставляем имя, если оно уже сохранялось в этом браузере */
+try {
+  nameInput.value = localStorage.getItem("visitorName") || "";
+} catch (error) {
+  /* Если хранилище недоступно, вход всё равно будет работать */
+}
+
+nameInput.addEventListener("input", function () {
+  nameMessage.textContent = "";
+});
+
+/* Вход по нажатию Enter в поле имени */
+nameInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    knockButton.click();
+  }
+});
+
 knockButton.addEventListener("click", function () {
+  const visitorName = nameInput.value.trim();
+
+  if (!visitorName) {
+    nameMessage.textContent = "Пожалуйста, введи своё имя.";
+    nameInput.focus();
+    return;
+  }
+
+  try {
+    localStorage.setItem("visitorName", visitorName);
+  } catch (error) {
+    /* Если хранилище недоступно, продолжаем без сохранения */
+  }
+
+  homeTitle.textContent = "Добро пожаловать домой, " + visitorName + "!";
+
   welcomeScreen.hidden = true;
   homeScreen.hidden = false;
 
   document.body.classList.add("entered");
   window.scrollTo(0, 0);
 });
-
 /* =========================================
    ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
    ========================================= */
@@ -427,3 +493,57 @@ musicPlayer.addEventListener("error", function () {
   musicMessage.textContent =
     "Не удалось загрузить песню. Проверьте путь к файлу.";
 });
+/* =========================================
+   СКРЫВАЕМ НАЗВАНИЯ РАЗДЕЛОВ
+   ========================================= */
+
+const headingsToHide = [
+  {
+    view: document.getElementById("calendar-view"),
+    title: "адвент-календарь"
+  },
+  {
+    view: document.getElementById("personal-room-view"),
+    title: "личная комната"
+  }
+];
+
+headingsToHide.forEach(function (item) {
+  if (!item.view) {
+    return;
+  }
+
+  item.view.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (heading) {
+    const text = heading.textContent.trim().toLowerCase();
+
+    if (text === item.title) {
+      heading.hidden = true;
+    }
+  });
+});
+
+/* =========================================
+   УБИРАЕМ ФОН ПОД КНОПКАМИ НАВИГАЦИИ
+   ========================================= */
+
+if (navigationButtons.length > 0) {
+  let navigationContainer = navigationButtons[0].parentElement;
+
+  /* Находим общий контейнер всех кнопок меню */
+  while (
+    navigationContainer &&
+    !Array.from(navigationButtons).every(function (button) {
+      return navigationContainer.contains(button);
+    })
+  ) {
+    navigationContainer = navigationContainer.parentElement;
+  }
+
+  if (
+    navigationContainer &&
+    navigationContainer !== document.body &&
+    navigationContainer !== homeScreen
+  ) {
+    navigationContainer.classList.add("navigation-transparent");
+  }
+}
