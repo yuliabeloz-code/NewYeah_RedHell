@@ -400,8 +400,6 @@ body.entered.personal-room-background {
 /* Кнопка открытия плейлиста */
 
 /* Кнопка с изображением Music.png */
-  position: relative;
-}
 
 /* Кнопка музыки поверх гостиной */
 .music-button {
@@ -440,6 +438,8 @@ body.entered.personal-room-background {
 .music-button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 4px;
+}
+
 /* Окно плейлиста */
 .music-menu {
   box-sizing: border-box;
@@ -627,13 +627,19 @@ body.entered.personal-room-background {
 }
 
 .name-input {
-  box-sizing: border-box;
   width: min(260px, 90%);
   padding: 10px 14px;
-  border: 1px solid #aaa;
+  border: 1px solid var(--gold);
   border-radius: 8px;
+  color: var(--dark);
+  background: var(--cream);
   font: inherit;
   text-align: center;
+}
+
+.name-input:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
 }
 
 .name-message {
