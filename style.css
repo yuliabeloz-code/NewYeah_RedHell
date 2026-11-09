@@ -406,8 +406,9 @@ body.entered.personal-room-background {
     left: больше — правее, меньше — левее;
     top: больше — ниже, меньше — выше.
   */
-  left: 73%;
-  top: 40%;
+  left: 71%;
+  top: 44%;
+   width: 11px;
 
   position: absolute;
   z-index: 2;
