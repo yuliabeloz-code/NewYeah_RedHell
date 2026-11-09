@@ -397,10 +397,6 @@ body.entered.personal-room-background {
   margin: 2px 0 0;
 }
 
-/* Кнопка открытия плейлиста */
-
-/* Кнопка с изображением Music.png */
-
 /* Кнопка музыки поверх гостиной */
 .music-button {
   /*
@@ -410,8 +406,8 @@ body.entered.personal-room-background {
     left: больше — правее, меньше — левее;
     top: больше — ниже, меньше — выше.
   */
-  left: 75%;
-  top: 65%;
+  left: 73%;
+  top: 40%;
 
   position: absolute;
   z-index: 2;
