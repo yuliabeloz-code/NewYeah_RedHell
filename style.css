@@ -185,6 +185,10 @@ button:focus-visible {
   border-radius: 11px;
   background: #1d1714;
 }
+/* Прозрачный фон изображения ёлки */
+.room-frame.tree-base-image {
+  background: transparent;
+}
 
 /* Подпись под изображением */
 .room-caption {
