@@ -1,6 +1,5 @@
-*/
-const SUPABASE_URL = " https://eqmuytbgdnadxuvygnks.supabase.co";
-const SUPABASE_PUBLIC_KEY = " sb_publishable_9uKBN-Zs8TygKyJfbE1YFQ_oa-cyJiE";
+const SUPABASE_URL = "https://eqmuytbgdnadxuvygnks.supabase.co";
+const SUPABASE_PUBLIC_KEY = "sb_publishable_9uKBN-Zs8TygKyJfbE1YFQ_oa-cyJiE";
 
 const TREE_API_URL = `${SUPABASE_URL}/functions/v1/tree-api`;
 
@@ -149,9 +148,9 @@ function createToyElement(toy, interactive) {
   if (interactive) {
     element.type = "button";
     element.setAttribute(
-      "aria-label",
-      `Игрушка. Добавил: ${toy.author}`,
-    );
+  "aria-label",
+  `Игрушка. Добавил: ${toy.author}`,
+);
 
     element.addEventListener("click", () => {
       if (busy || draft) {
