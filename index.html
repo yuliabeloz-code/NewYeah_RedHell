@@ -4,20 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Название страницы во вкладке браузера -->
   <title>Добро пожаловать домой</title>
 
-  <!-- Подключение файла с оформлением -->
+  <!-- Файлы оформления -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="personal-room.css">
-<script src="personal-room.js" defer></script>
+
+  <!-- Контейнер для позиционирования ёлки поверх гостиной -->
+  <style>
+    .room-frame {
+      position: relative;
+    }
+  </style>
+
+  <!-- Telegram Web App должен подключаться перед tree.js -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="personal-room.js" defer></script>
+  <script src="tree.js" defer></script>
 </head>
-  
+
 <body>
-  <!-- =========================================
-       НАЧАЛЬНЫЙ ЭКРАН
-       Здесь можно изменить приветствие и текст кнопки.
-       ========================================= -->
+  <!-- НАЧАЛЬНЫЙ ЭКРАН -->
   <main id="welcome-screen" class="screen welcome-screen">
     <div class="welcome-card">
       <div class="welcome-decoration" aria-hidden="true"></div>
@@ -31,22 +38,15 @@
     </div>
   </main>
 
-  <!-- =========================================
-       ЭКРАН ПОСЛЕ ВХОДА В ДОМ
-       ========================================= -->
+  <!-- ЭКРАН ПОСЛЕ ВХОДА В ДОМ -->
   <main id="home-screen" class="screen home-screen" hidden>
-    <!-- Заголовок внутри дома -->
     <header class="home-header">
       <div class="ornament" aria-hidden="true">✦ ❄ ✦</div>
       <h1>Добро пожаловать домой, чертята!</h1>
     </header>
 
     <div class="content">
-      <!-- =====================================
-           ГОСТИНАЯ
-           Дневное и ночное изображения переключаются
-           автоматически в файле script.js.
-           ===================================== -->
+      <!-- ГОСТИНАЯ -->
       <section id="living-room-view" aria-label="Гостиная">
         <div class="room-frame">
           <img
@@ -54,33 +54,39 @@
             src="living-room.jpg"
             alt="Уютная праздничная гостиная"
           >
+
+          <!-- Ёлка на странице гостиной -->
+          <div
+            class="tree-overlay"
+            id="livingTree"
+            role="button"
+            tabindex="0"
+            aria-label="Открыть ёлку"
+          >
+            <img
+              class="tree-base-image"
+              src="Tree.png"
+              alt="Новогодняя ёлка"
+            >
+
+            <div class="toy-layer" id="livingToyLayer"></div>
+          </div>
         </div>
 
         <p class="room-caption">Как хорошо быть дома ✨</p>
       </section>
 
-      <!-- =====================================
-           АДВЕНТ-КАЛЕНДАРЬ
-           Пока здесь находится заглушка.
-           ===================================== -->
+      <!-- АДВЕНТ-КАЛЕНДАРЬ -->
       <section id="calendar-view" class="placeholder" hidden>
       </section>
 
-      <!-- =====================================
-           ЛИЧНАЯ КОМНАТА
-           Пока здесь находится заглушка.
-           ===================================== -->
+      <!-- ЛИЧНАЯ КОМНАТА -->
       <section id="personal-room-view" class="placeholder" hidden>
       </section>
     </div>
 
-    <!-- =========================================
-         НИЖНЕЕ МЕНЮ
-         Здесь можно изменить подписи и названия
-         файлов с иконками.
-         ========================================= -->
+    <!-- НИЖНЕЕ МЕНЮ -->
     <nav class="navigation" aria-label="Навигация по дому">
-      <!-- Кнопка адвент-календаря -->
       <button
         class="nav-button"
         type="button"
@@ -92,7 +98,6 @@
         <span class="nav-label">Адвент-календарь</span>
       </button>
 
-      <!-- Кнопка гостиной -->
       <button
         class="nav-button"
         type="button"
@@ -105,7 +110,6 @@
         <span class="nav-label">Гостиная</span>
       </button>
 
-      <!-- Кнопка личной комнаты -->
       <button
         class="nav-button"
         type="button"
@@ -119,7 +123,106 @@
     </nav>
   </main>
 
-  <!-- Подключение файла с поведением страницы -->
+  <!-- ОКНО ЁЛКИ -->
+  <dialog class="tree-dialog" id="treeDialog">
+    <div class="tree-dialog-content">
+      <div class="tree-dialog-header">
+        <h2>Наша новогодняя ёлка</h2>
+
+        <button
+          class="tree-close-button"
+          id="closeTreeButton"
+          type="button"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+      </div>
+
+      <p class="tree-hint">
+        Нажмите на игрушку, чтобы посмотреть, кто её добавил.
+        Новую игрушку можно перемещать пальцем или мышью.
+      </p>
+
+      <div class="tree-preview">
+        <div class="tree-stage" id="treeStage">
+          <img
+            class="tree-base-image"
+            src="Tree.png"
+            alt="Увеличенная новогодняя ёлка"
+          >
+                    <div class="toy-layer" id="modalToyLayer"></div>
+          <div class="toy-layer draft-layer" id="draftToyLayer"></div>
+        </div>
+      </div>
+
+      <div class="tree-controls">
+        <input
+          id="toyFileInput"
+          type="file"
+          accept="image/png,image/webp"
+          hidden
+        >
+
+        <button class="tree-button" id="addToyButton" type="button">
+          Украсить ёлку
+        </button>
+
+        <label class="tree-size-control" for="toyScale">
+          Размер игрушки
+
+          <input
+            id="toyScale"
+            type="range"
+            min="4"
+            max="30"
+            step="0.5"
+            value="15"
+            disabled
+          >
+        </label>
+
+        <button
+          class="tree-button"
+          id="saveToyButton"
+          type="button"
+          disabled
+        >
+          Сохранить
+        </button>
+
+        <button
+          class="tree-secondary-button"
+          id="cancelEditButton"
+          type="button"
+          hidden
+        >
+          Отменить размещение
+        </button>
+      </div>
+
+      <p class="tree-message" id="treeMessage" aria-live="polite"></p>
+
+      <section class="toy-details" id="toyDetails" hidden>
+        <h3>Игрушка на ёлке</h3>
+
+        <img id="toyDetailsImage" alt="Игрушка крупным планом">
+
+        <p id="toyDetailsAuthor"></p>
+
+        <button
+          class="tree-secondary-button"
+          id="adminEditButton"
+          type="button"
+          hidden
+        >
+          Изменить положение
+        </button>
+      </section>
+    </div>
+  </dialog>
+
+  <!-- Основное поведение страницы -->
   <script src="script.js"></script>
 </body>
 </html>
