@@ -453,7 +453,10 @@ body.entered.personal-room-background {
   justify-content: center;
   padding: 10px;
   border-radius: 14px;
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
+}
+.tree-base-image {
+  background: transparent;
 }
 
 .tree-stage {
