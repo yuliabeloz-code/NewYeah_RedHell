@@ -226,40 +226,42 @@
   <!-- Основное поведение страницы -->
   <script src="script.js"></script>
   <script>
-  // Дата и время открытия ёлки: 1 декабря 2026 года, 00:00 по Москве.
-  const treeOpenDate = new Date("2026-11-12T00:00:00+03:00");
+  (() => {
+    // Дата открытия ёлки: 12 ноября 2026 года, 00:00 по Москве.
+    const treeOpenDate = new Date("2026-11-12T00:00:00+03:00");
 
-  const livingTree = document.getElementById("livingTree");
-  let treeTimer;
+    const treeForAvailability = document.getElementById("livingTree");
+    let treeTimer;
 
-  function updateTreeAvailability() {
-    clearTimeout(treeTimer);
+    function updateTreeAvailability() {
+      clearTimeout(treeTimer);
 
-    const remaining = treeOpenDate.getTime() - Date.now();
+      const remaining = treeOpenDate.getTime() - Date.now();
 
-    if (remaining <= 0) {
-      livingTree.hidden = false;
-      return;
+      if (remaining <= 0) {
+        treeForAvailability.hidden = false;
+        return;
+      }
+
+      treeForAvailability.hidden = true;
+
+      // Ограничение для корректной работы длинного таймера.
+      const maxTimeout = 2147483647;
+
+      treeTimer = setTimeout(
+        updateTreeAvailability,
+        Math.min(remaining, maxTimeout)
+      );
     }
 
-    livingTree.hidden = true;
+    updateTreeAvailability();
 
-    // Ограничение нужно для корректной работы длинного таймера.
-    const maxTimeout = 2147483647;
-    treeTimer = setTimeout(
-      updateTreeAvailability,
-      Math.min(remaining, maxTimeout)
-    );
-  }
-
-  updateTreeAvailability();
-
-  // Повторная проверка, когда пользователь возвращается в приложение.
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
-      updateTreeAvailability();
-    }
-  });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        updateTreeAvailability();
+      }
+    });
+  })();
   </script>
 </body>
 </html>
