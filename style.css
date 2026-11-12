@@ -543,6 +543,14 @@ body.entered.personal-room-background {
 [hidden] {
   display: none !important;
 }
+.tree-overlay {
+  /* существующие стили */
+}
+
+/* Добавьте здесь, отдельным блоком */
+#livingTree[hidden] {
+  display: none !important;
+}
 /* =========================================
    БЛОК «УКРАСИТЬ ЁЛКУ»
    ========================================= */
