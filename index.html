@@ -62,6 +62,7 @@
             role="button"
             tabindex="0"
             aria-label="Открыть ёлку"
+            hidden
           >
             <img
               class="tree-base-image"
@@ -141,7 +142,7 @@
 
       <p class="tree-hint">
         Нажмите на игрушку, чтобы посмотреть, кто её добавил.
-        Новую игрушку можно перемещать пальцем или мышью.
+        Новую игрушку можно перемещать самостоятельно.
       </p>
 
       <div class="tree-preview">
@@ -224,5 +225,41 @@
 
   <!-- Основное поведение страницы -->
   <script src="script.js"></script>
+  <script>
+  // Дата и время открытия ёлки: 1 декабря 2026 года, 00:00 по Москве.
+  const treeOpenDate = new Date("2026-12-01T00:00:00+03:00");
+
+  const livingTree = document.getElementById("livingTree");
+  let treeTimer;
+
+  function updateTreeAvailability() {
+    clearTimeout(treeTimer);
+
+    const remaining = treeOpenDate.getTime() - Date.now();
+
+    if (remaining <= 0) {
+      livingTree.hidden = false;
+      return;
+    }
+
+    livingTree.hidden = true;
+
+    // Ограничение нужно для корректной работы длинного таймера.
+    const maxTimeout = 2147483647;
+    treeTimer = setTimeout(
+      updateTreeAvailability,
+      Math.min(remaining, maxTimeout)
+    );
+  }
+
+  updateTreeAvailability();
+
+  // Повторная проверка, когда пользователь возвращается в приложение.
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      updateTreeAvailability();
+    }
+  });
+  </script>
 </body>
 </html>
