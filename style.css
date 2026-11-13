@@ -185,6 +185,11 @@ button:focus-visible {
   border-radius: 11px;
   background: #1d1714;
 }
+/* Прозрачный фон ёлки и игрушек внутри рамки */
+.room-frame img.tree-base-image,
+.room-frame .tree-toy img {
+  background: transparent;
+}
 /* Прозрачный фон изображения ёлки */
 .room-frame.tree-base-image {
   background: transparent;
