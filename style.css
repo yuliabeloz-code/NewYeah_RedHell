@@ -1,22 +1,8 @@
-/* =========================================
-   ОСНОВНЫЕ ЦВЕТА
-   Здесь можно изменить общую цветовую палитру.
-   ========================================= */
-
 :root {
   color-scheme: dark;
-
-  --cream: #fff1d2;
-  --gold: #e7be76;
-  --red: #8f2835;
-  --red-light: #b4404c;
-  --green: #173c32;
-  --dark: #101d1a;
+  font-family: Georgia, serif;
+  color: #fff5d6;
 }
-
-/* =========================================
-   ОБЩИЕ НАСТРОЙКИ СТРАНИЦЫ
-   ========================================= */
 
 * {
   box-sizing: border-box;
@@ -25,855 +11,259 @@
 body {
   margin: 0;
   min-height: 100vh;
-  min-height: 100dvh;
-  color: var(--cream);
-  font-family: Georgia, "Times New Roman", serif;
-
-  /* Фон начального экрана */
-  background: #101d1a url("background.jpg") center center / cover no-repeat;
+  background: #17120f url("background01.jpg") center / cover fixed;
 }
 
-/* Фон после входа в дом */
-body.entered {
-  background: #101d1a url("background01.jpg") center center / cover no-repeat;
+body.start-screen {
+  background-image: url("background.jpg");
 }
 
-button {
+button,
+input {
   font: inherit;
 }
 
-/* Рамка кнопки при навигации с клавиатуры */
-button:focus-visible {
-  outline: 3px solid #fff1d2;
-  outline-offset: 4px;
+button {
+  cursor: pointer;
 }
 
-/* Скрытые разделы не занимают место на странице */
-[hidden] {
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.hidden {
   display: none !important;
 }
 
-/* Общий размер и отступы экранов */
-.screen {
-  width: min(100%, 700px);
-  min-height: 100vh;
-  min-height: 100dvh;
+#app {
+  max-width: 760px;
   margin: 0 auto;
-  padding: 24px 18px 30px;
+  padding: 24px 16px 110px;
 }
 
-/* =========================================
-   НАЧАЛЬНЫЙ ЭКРАН
-   ========================================= */
-
-.welcome-screen {
+.start {
+  min-height: 75vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
+  gap: 16px;
   text-align: center;
 }
 
-/* Карточка приветствия */
-.welcome-card {
-  width: min(100%, 420px);
-  padding: 42px 24px;
-  border: 1px solid rgba(231, 190, 118, 0.55);
-  border-radius: 24px;
-  background: rgba(12, 29, 24, 0.8);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+.start input {
+  width: min(100%, 300px);
+  padding: 12px;
+  border: 1px solid #d7b76b;
+  border-radius: 8px;
+  background: rgba(20, 15, 12, 0.85);
+  color: white;
 }
 
-/* Украшение над заголовком */
-.welcome-decoration {
-  font-size: 54px;
-  line-height: 1;
+.gold-button {
+  padding: 10px 18px;
+  border: 1px solid #d7b76b;
+  border-radius: 8px;
+  background: #4b3520;
+  color: #fff5d6;
 }
 
-/* Заголовок карточки */
-.welcome-card h1 {
-  margin: 20px 0 12px;
-  font-size: clamp(30px, 8vw, 44px);
-  color: var(--gold);
-}
-
-/* Текст карточки */
-.welcome-card p {
-  margin: 0 0 28px;
-  font-size: 17px;
-  line-height: 1.5;
-}
-
-/* Кнопка «Постучать в дверь» */
-.knock-button {
-  padding: 15px 28px;
-  border: 1px solid #e6bd80;
-  border-radius: 999px;
-  color: #fff5e2;
-  background: linear-gradient(var(--red-light), var(--red));
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-}
-
-/* Цвет кнопки при наведении */
-.knock-button:hover {
-  background: linear-gradient(#c34c58, #9f303d);
-}
-
-/* =========================================
-   ЭКРАН ПОСЛЕ ВХОДА В ДОМ
-   ========================================= */
-
-.home-screen {
-  display: flex;
-  flex-direction: column;
+h1,
+h2 {
   text-align: center;
 }
 
-/* Верхняя часть с заголовком */
-.home-header {
-  padding: 12px 0 22px;
-}
-
-/* Декоративные символы над заголовком */
-.ornament {
-  color: var(--gold);
-  font-size: 22px;
-  letter-spacing: 8px;
-}
-
-/* Заголовок внутри дома */
-.home-header h1 {
-  margin: 10px 0 0;
-  color: var(--cream);
-  font-size: clamp(27px, 7vw, 42px);
-  line-height: 1.15;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* Область с содержимым выбранного раздела */
-.content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* =========================================
-   ГОСТИНАЯ
-   ========================================= */
-
-/* Рамка изображения */
 .room-frame {
   position: relative;
-  overflow: hidden;
-  padding: 8px;
-  border: 2px solid var(--gold);
-  border-radius: 20px;
-  background: #5b382b;
-  box-shadow:
-    0 0 0 4px #35271e,
-    0 14px 35px rgba(0, 0, 0, 0.5);
-}
-
-/* Размер и отображение изображения гостиной */
-.room-frame img {
-  display: block;
   width: 100%;
-  max-height: 60vh;
-  object-fit: contain;
-  border-radius: 11px;
-  background: #1d1714;
-}
-/* Прозрачный фон ёлки и игрушек внутри рамки */
-.room-frame img.tree-base-image,
-.room-frame .tree-toy img {
-  background: transparent;
-}
-/* Прозрачный фон изображения ёлки */
-.room-frame.tree-base-image {
-  background: transparent;
-}
-
-/* Подпись под изображением */
-.room-caption {
-  margin: 18px 0 8px;
-  color: var(--gold);
-  font-size: 19px;
-  font-style: italic;
-}
-
-/* =========================================
-   ЗАГЛУШКИ РАЗДЕЛОВ
-   Используются для календаря и личной комнаты.
-   ========================================= */
-
-.placeholder {
-  padding: 50px 20px;
-    border: 1px solid rgba(231, 190, 118, 0.6);
-  border-radius: 20px;
-  background: rgba(12, 29, 24, 0.7);
-}
-
-.placeholder h2 {
-  margin: 0 0 12px;
-  color: var(--gold);
-  font-size: 28px;
-}
-
-.placeholder p {
-  margin: 0;
-  line-height: 1.5;
-}
-body.entered.personal-room-background {
-  background-image: url("bedroom.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* =========================================
-   НИЖНЕЕ МЕНЮ
-   ========================================= */
-
-/* Общая панель меню */
-.navigation {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 28px;
-  padding: 18px 10px 12px;
-  border: 1px solid rgba(231, 190, 118, 0.45);
-  border-radius: 24px;
-  background: rgba(10, 26, 21, 0.85);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-/* Каждая кнопка меню */
-.nav-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 9px;
-  min-width: 0;
-  padding: 0;
-  border: 0;
-  color: var(--cream);
-  background: transparent;
-  cursor: pointer;
-}
-
-/* Круглый фон и рамка иконки */
-.nav-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(60px, 17vw, 82px);
-  height: clamp(60px, 17vw, 82px);
-  padding: 8px;
+  border: 1px solid #d7b76b;
   overflow: hidden;
-  border: 2px solid rgba(231, 190, 118, 0.65);
-  border-radius: 50%;
-  background: #68313a;
-  transition: transform 0.2s, border-color 0.2s;
 }
 
-/* Выделение выбранной кнопки и кнопки при наведении */
-.nav-button:hover .nav-icon,
-.nav-button[aria-current="page"] .nav-icon {
-  transform: translateY(-3px);
-  border-color: #ffe1a0;
-  box-shadow: 0 0 14px rgba(231, 190, 118, 0.3);
-}
-
-/* Изображение внутри иконки */
-.nav-icon img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Подписи под иконками */
-.nav-label {
-  font-size: clamp(12px, 3.3vw, 15px);
-  line-height: 1.2;
-}
-
-/* =========================================
-   НАСТРОЙКИ ДЛЯ УЗКИХ ЭКРАНОВ
-   ========================================= */
-
-@media (max-width: 360px) {
-  .screen {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
-
-  .navigation {
-    gap: 4px;
-  }
-}/* 
-/*
-  Контейнер изображения гостиной.
-  Если у вас он называется иначе — используйте свой класс.
-*/
-.living-room-image {
-  position: relative;
-}
-
-/* Ёлка поверх изображения гостиной */
-.tree-overlay {
-  position: absolute;
-
-  left: 1%;
-  top: 10%;
-  width: 40%;
-
-  cursor: pointer;
-  z-index: 2;
-}
-
-.tree-overlay:focus-visible {
-  outline: 3px solid #f6d88f;
-  outline-offset: 4px;
-  border-radius: 12px;
-}
-
-.tree-base-image {
+.room-image {
   display: block;
   width: 100%;
   height: auto;
-  user-select: none;
-  -webkit-user-drag: none;
 }
 
 /*
-  Слой и координаты совпадают с полным прямоугольником Tree.png.
-  Одинаковые пропорции сохраняются в гостиной и в увеличенном окне.
+  Эти координаты можно подстроить под конкретную картинку гостиной.
 */
-.toy-layer {
+.room-tree-button {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.tree-toy {
-  position: absolute;
-  display: block;
+  left: 3%;
+  bottom: 3%;
+  width: 27%;
   padding: 0;
   border: 0;
   background: transparent;
-
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
 }
 
-.tree-toy img {
+.room-tree-button img {
+  pointer-events: none;
+}
+
+.room-music-button {
+  position: absolute;
+  right: 4%;
+  bottom: 8%;
+  width: 16%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.room-music-button img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-/* В гостиной нажатие открывает всю ёлку */
-.tree-overlay .tree-toy {
-  pointer-events: none;
-}
-
-/* В увеличенном окне игрушки можно нажимать */
-.tree-stage .tree-toy {
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-.tree-stage .tree-toy:focus-visible {
-  outline: 2px solid #f6d88f;
-  border-radius: 8px;
-}
-
-.tree-toy.is-draft {
-  cursor: grab;
-  touch-action: none;
-  outline: 2px dashed #f6d88f;
-  outline-offset: 3px;
-  border-radius: 8px;
-}
-
-.tree-toy.is-draft:active {
-  cursor: grabbing;
-}
-
-/* Окно увеличенной ёлки */
-.tree-dialog {
-  width: min(94vw, 720px);
-  max-height: 92vh;
-  padding: 0;
-  border: 1px solid #e7be76;
-  border-radius: 20px;
-  color: #fff8e7;
-  background: #12382c;
-}
-
-.tree-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.75);
-}
-
-.tree-dialog-content {
-  padding: 18px;
-}
-
-.tree-dialog-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.tree-dialog-header h2 {
-  margin: 0;
-  font-size: 22px;
-}
-
-.tree-close-button {
-  width: 42px;
-  height: 42px;
-  border: 0;
-  border-radius: 50%;
-  color: #fff8e7;
-  background: #285c46;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-.tree-hint {
-  color: #ead8b4;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.tree-preview {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  border-radius: 14px;
-  background: transparent;
-}
-.tree-base-image {
-  background: transparent;
 }
 
 .tree-stage {
   position: relative;
-  width: min(100%, 420px);
+  width: 100%;
 }
 
-.draft-layer {
-  z-index: 5;
+.tree-base {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.tree-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
+.toy {
+  position: absolute;
+  width: 17%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  touch-action: none;
+}
+
+.toy-preview {
+  cursor: grab;
+  filter: drop-shadow(0 0 4px gold);
+}
+
+.prediction-row {
+  text-align: center;
   margin-top: 18px;
 }
 
-.tree-button,
-.tree-secondary-button {
-  padding: 11px 18px;
-  border: 1px solid #e7be76;
-  border-radius: 999px;
-  color: #fff8e7;
-  background: linear-gradient(#285c46, #173c32);
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.tree-button:hover,
-.tree-secondary-button:hover {
-  background: linear-gradient(#347454, #20503d);
-}
-
-.tree-button:disabled,
-.tree-secondary-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.tree-size-control {
+.navigation {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 150px;
-  color: #ead8b4;
-  font-size: 14px;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 8px max(8px, env(safe-area-inset-bottom));
+  background: rgba(20, 14, 10, 0.95);
+  border-top: 1px solid #a88b4e;
 }
 
-.tree-size-control input {
-  width: 150px;
+.navigation button {
+  width: 100px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: #fff5d6;
 }
 
-.tree-message {
-  min-height: 1.4em;
-  margin: 12px 0 0;
-  color: #f6d88f;
-  font-size: 14px;
-  line-height: 1.4;
+.navigation img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  margin: 0 auto 3px;
 }
 
-.toy-details {
+.navigation span {
+  font-size: 11px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  position: relative;
+  width: min(100%, 500px);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 28px 18px 18px;
+  border: 1px solid #d7b76b;
+  border-radius: 12px;
+  background: #241b16;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 30px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 16px;
-  padding: 14px;
-  border: 1px solid rgba(231, 190, 118, 0.6);
-  border-radius: 14px;
-  background: rgba(0, 0, 0, 0.2);
 }
 
-.toy-details h3 {
-  margin-top: 0;
+.tree-modal-stage {
+  width: min(100%, 320px);
+  margin: auto;
 }
 
-.toy-details img {
+.vinyl {
+  display: block;
+  width: min(65%, 230px);
+  margin: 15px auto;
+  border: 0;
+  background: transparent;
+}
+
+.vinyl img {
+  display: block;
+  width: 100%;
+}
+
+.zodiac-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.prediction-card {
   display: block;
   max-width: 100%;
-  width: 200px;
-  height: 200px;
+  max-height: 65vh;
+  margin: auto;
   object-fit: contain;
 }
 
-.toy-details p {
-  overflow-wrap: anywhere;
-}
-
-[hidden] {
-  display: none !important;
-}
-.tree-overlay {
-  /* существующие стили */
-}
-
-/* Добавьте здесь, отдельным блоком */
-#livingTree[hidden] {
-  display: none !important;
-}
-/* =========================================
-   БЛОК «УКРАСИТЬ ЁЛКУ»
-   ========================================= */
-
-.decoration-panel {
-  margin-top: 18px;
-  padding: 18px 16px;
-  border: 1px solid rgba(231, 190, 118, 0.7);
-  border-radius: 20px;
-  background: rgba(12, 45, 33, 0.9);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.decorate-button {
-  padding: 13px 24px;
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  color: var(--cream);
-  background: linear-gradient(#285c46, #173c32);
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
-}
-
-.decorate-button:hover {
-  background: linear-gradient(#347454, #20503d);
-}
-
-.decoration-message {
-  margin: 12px 0 0;
-  color: var(--gold);
-  font-size: 14px;
-  line-height: 1.4;
-}
-/* =========================================
-   МУЗЫКА В ГОСТИНОЙ
-   ========================================= */
-
-/* Размещаем кнопки рядом */
-.decoration-panel {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Сообщение об игрушках под кнопками */
-.decoration-message {
-  flex-basis: 100%;
-  margin: 2px 0 0;
-}
-
-/* Кнопка музыки поверх гостиной */
-.music-button {
-  /*
-    Положение кнопки относительно изображения гостиной.
-    Меняйте эти значения:
-
-    left: больше — правее, меньше — левее;
-    top: больше — ниже, меньше — выше.
-  */
-  left: 69%;
-  top: 42%;
-   width: 70px;
-
-  position: absolute;
-  z-index: 2;
-
-  /* Указанная точка соответствует центру кнопки */
-  transform: translate(-50%, -50%);
-
-  box-sizing: border-box;
-  width: 80px;
-  height: 80px;
-  padding: 0;
-  border: 0;
-  border-radius: 12px;
-  background: transparent url("Music.png") center / contain no-repeat;
-  box-shadow: none;
-  font-size: 0;
-  cursor: pointer;
-}
-.music-button:hover {
-  background: transparent url("Music.png") center / contain no-repeat;
-  opacity: 0.85;
-}
-
-.music-button:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 4px;
-}
-
-/* Окно плейлиста */
-.music-menu {
-  box-sizing: border-box;
-  width: min(500px, calc(100% - 32px));
-  max-width: none;
-  max-height: calc(100vh - 32px);
-  margin: auto;
-  padding: 20px;
-  overflow-y: auto;
-  border: 1px solid rgba(231, 190, 118, 0.6);
-  border-radius: 18px;
-  color: var(--cream);
-  background: #14251f;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.55);
-}
-
-/* Затемнение гостиной за меню */
-.music-menu::backdrop {
-  background: rgba(0, 0, 0, 0.55);
-}
-
-/* Заголовок и крестик */
-.music-menu-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.music-menu-header h2 {
-  margin: 0;
-  color: var(--gold);
-  font-size: 21px;
-  line-height: 1.3;
-}
-
-.music-close {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 1px solid rgba(231, 190, 118, 0.45);
-  border-radius: 50%;
-  color: var(--cream);
-  background: rgba(143, 73, 80, 0.7);
-  font-size: 26px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.music-close:hover {
-  background: #a95a60;
-}
-
-/* Стрелки и прокручиваемый список */
-.records-carousel {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.records-arrow {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 44px;
-  padding: 0;
-  border: 1px solid rgba(231, 190, 118, 0.45);
-  border-radius: 10px;
-  color: var(--gold);
-  background: rgba(231, 190, 118, 0.08);
-  font-size: 30px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.records-arrow:hover:not(:disabled) {
-  background: rgba(231, 190, 118, 0.2);
-}
-
-.records-arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-.records-list {
-  display: flex;
-  flex: 1 1 auto;
-  min-width: 0;
-  gap: 12px;
-  padding: 4px 2px 10px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold) transparent;
-}
-
-/* Пластинки */
-.record-button {
-  display: flex;
-  flex: 0 0 110px;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  box-sizing: border-box;
-  padding: 8px;
-  border: 1px solid transparent;
-  border-radius: 14px;
-  color: var(--cream);
-  background: transparent;
-  cursor: pointer;
-  scroll-snap-align: start;
-}
-
-.record-button img {
-  display: block;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  transition: transform 0.2s;
-}
-
-.record-button span {
-  font-size: 14px;
-  line-height: 1.3;
-  text-align: center;
-}
-
-.record-button:hover img {
-  transform: scale(1.06);
-}
-
-/* Выбранная пластинка */
-.record-button[aria-pressed="true"] {
-  border-color: var(--gold);
-  background: rgba(231, 190, 118, 0.1);
-}
-
-/* Плеер и сообщение */
-.music-player {
-  display: block;
-  width: min(100%, 350px);
-  margin: 18px auto 0;
-}
-
-.music-message {
-  margin: 10px 0 0;
-  color: var(--gold);
-  font-size: 14px;
-  line-height: 1.4;
-  text-align: center;
-}
-
-/* Видимое выделение при управлении с клавиатуры */
-.music-button:focus-visible,
-.music-close:focus-visible,
-.records-arrow:focus-visible,
-.record-button:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .record-button img {
-    transition: none;
-  }
-}
-/* Поле для ввода имени */
-.name-field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.name-field label {
-  font-weight: bold;
-}
-
-.name-input {
-  width: min(260px, 90%);
-  padding: 10px 14px;
-  border: 1px solid var(--gold);
+.task {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #a88b4e;
   border-radius: 8px;
-  color: var(--dark);
-  background: var(--cream);
-  font: inherit;
+  background: rgba(30, 22, 16, 0.8);
+}
+
+.message {
   text-align: center;
-}
-
-.name-input:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 3px;
-}
-
-.name-message {
-  min-height: 1.2em;
-  margin: 0;
-  color: #b00020;
-}
-
-/* Прозрачный фон под кнопками навигации */
-.navigation-transparent {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-#calendar-view,
-#personal-room-view {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  min-height: 0;
+  line-height: 1.5;
 }
