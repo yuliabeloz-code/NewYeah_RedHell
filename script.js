@@ -353,7 +353,7 @@ function renderPage() {
   if (currentPage === "bedroom") {
     renderBedroom();
   } else if (currentPage === "advent") {
-         renderAdvent();
+        renderAdvent();
   } else {
     renderHome();
   }
