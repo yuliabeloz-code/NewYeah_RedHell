@@ -591,3 +591,135 @@ h2 {
   background: #26732c;
   color: white;
 }
+/* ============================================================
+   Магазин Санты
+   ============================================================ */
+
+.santa-shop {
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(25, 17, 13, 0.88);
+}
+
+.santa-shop-stats {
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+.ticket-image {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 15px auto;
+}
+
+
+/* ============================================================
+   Письмо эльфам
+   ============================================================ */
+
+.elf-letter {
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(25, 17, 13, 0.9);
+}
+
+.gift-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.gift-selector img {
+  width: min(55vw, 220px);
+  height: 180px;
+  object-fit: contain;
+}
+
+.gift-arrow {
+  min-width: 42px;
+  padding: 8px;
+  border: 1px solid #d7b76b;
+  border-radius: 6px;
+  background: #39251a;
+  color: white;
+  font-size: 22px;
+}
+
+.elf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.elf-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.elf-form input,
+.elf-form textarea,
+.star-answer {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px;
+  border: 1px solid #d7b76b;
+  border-radius: 6px;
+  background: #211710;
+  color: white;
+  font: inherit;
+}
+
+.elf-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+
+/* ============================================================
+   Звёзды
+   ============================================================ */
+
+.stars-screen {
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(16, 19, 38, 0.92);
+}
+
+.stars-mosaic {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2px;
+  width: 100%;
+  max-width: 600px;
+  margin: 15px auto;
+}
+
+.stars-mosaic img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.star-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.star-puzzle-image {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  max-height: 350px;
+  object-fit: contain;
+  margin: 15px auto;
+}
