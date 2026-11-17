@@ -267,3 +267,327 @@ h2 {
   text-align: center;
   line-height: 1.5;
 }
+/* ============================================================
+   Продолжение: адвент, личная комната и игры
+   ============================================================ */
+
+.advent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.advent-cell {
+  min-height: 68px;
+  border: 1px solid #d7b76b;
+  border-radius: 8px;
+  background: rgba(70, 38, 25, 0.9);
+  color: #fff5d6;
+  font-size: 22px;
+}
+
+.advent-cell:disabled {
+  opacity: 0.45;
+}
+
+.room-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.room-action {
+  padding: 8px;
+  border: 1px solid #d7b76b;
+  border-radius: 10px;
+  background: rgba(30, 20, 15, 0.75);
+  color: #fff5d6;
+}
+
+.room-action img {
+  display: block;
+  width: 100%;
+  max-width: 110px;
+  height: 90px;
+  object-fit: contain;
+  margin: 0 auto 6px;
+}
+
+.room-action span {
+  display: block;
+  font-size: 13px;
+}
+
+.candy-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.candy-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.games-menu {
+  min-height: 360px;
+  padding: 15px;
+  background:
+    #302017 url("games01.png") center / cover no-repeat;
+  border-radius: 8px;
+}
+
+.games-columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+}
+
+.games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shop-panel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.game-screen {
+  min-height: 390px;
+  padding: 12px;
+  border-radius: 8px;
+  background:
+    #302017 url("games03.png") center / cover no-repeat;
+}
+
+.game-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.game-instructions {
+  text-align: center;
+  line-height: 1.4;
+}
+
+.game-result {
+  padding: 15px;
+  text-align: center;
+  background: rgba(25, 17, 13, 0.9);
+  border: 1px solid #d7b76b;
+  border-radius: 8px;
+}
+
+/* Поймать подарок */
+
+.catch-field {
+  position: relative;
+  height: min(55vh, 420px);
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid #d7b76b;
+  background: rgba(0, 0, 0, 0.15);
+  touch-action: none;
+}
+
+.catch-gift {
+  position: absolute;
+  width: 13%;
+  max-width: 52px;
+  height: auto;
+  pointer-events: none;
+}
+
+.catch-basket {
+  position: absolute;
+  bottom: 4px;
+  width: 24%;
+  max-width: 110px;
+  height: 60px;
+  object-fit: contain;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Угадай последовательность */
+
+.sequence-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 8px 0;
+  padding: 12px 5px;
+  background:
+    url("light07.png") center / 100% 100% no-repeat;
+}
+
+.sequence-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 55px;
+  border: 2px solid #d7b76b;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+}
+
+.sequence-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sequence-slot.correct {
+  border-color: #38db6a;
+  background-color: rgba(0, 110, 30, 0.75);
+}
+
+.sequence-slot.present {
+  border-color: #ffe047;
+  background-color: rgba(130, 100, 0, 0.75);
+}
+
+.sequence-slot.absent {
+  border-color: #ff5555;
+  background-color: rgba(120, 0, 0, 0.75);
+}
+
+.light-options {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  margin: 14px 0;
+}
+
+.light-option {
+  padding: 3px;
+  border: 1px solid #d7b76b;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.light-option img {
+  display: block;
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+}
+
+.sequence-history {
+  max-height: 200px;
+  overflow: auto;
+}
+
+/* Найди пару */
+
+.pairs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin: 12px auto;
+  max-width: 380px;
+}
+
+.pair-card {
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #d7b76b;
+  border-radius: 6px;
+  background: #291a16;
+}
+
+.pair-card img {
+  display: block;
+  width: 100%;
+    height: 100%;
+  object-fit: cover;
+}
+
+/* Маятник */
+
+.pendulum-field {
+  position: relative;
+  width: min(100%, 300px);
+  height: 270px;
+  margin: 0 auto;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.clock-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pendulum-target {
+  position: absolute;
+  z-index: 1;
+  left: 46%;
+  bottom: 8px;
+  width: 8%;
+  height: 75px;
+  border: 1px solid white;
+  background: repeating-linear-gradient(
+    135deg,
+    #fff 0,
+    #fff 7px,
+    #c62828 7px,
+    #c62828 14px
+  );
+  opacity: 0.8;
+}
+
+.pendulum-arm {
+  position: absolute;
+  z-index: 2;
+  top: 35px;
+  left: 50%;
+  width: 55px;
+  height: 185px;
+  object-fit: contain;
+  transform-origin: 50% 0;
+  touch-action: none;
+}
+
+.secret-code-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.secret-code-row input {
+  min-width: 0;
+  flex: 1;
+  padding: 9px;
+  border: 1px solid #d7b76b;
+  border-radius: 6px;
+  background: #211710;
+  color: white;
+}
+
+.green-button {
+  padding: 9px 14px;
+  border: 1px solid #9fff9f;
+  border-radius: 6px;
+  background: #26732c;
+  color: white;
+}
