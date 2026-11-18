@@ -186,9 +186,11 @@ function renderStart() {
   document.body.classList.add("start-screen");
   navigation.classList.add("hidden");
 
+  const hasProfile = Boolean(state.profile);
+
   app.innerHTML = `
     <section class="start">
-          <h1>Назови своё имя, чертёнок</h1>
+      <h1>Назови своё имя, чертёнок</h1>
 
       <input
         id="name-input"
@@ -203,35 +205,41 @@ function renderStart() {
     </section>
   `;
 
-  document.getElementById("open-door")
-    .addEventListener("click", async () => {
-      const input = document.getElementById("name-input");
-      const name = input.value.trim();
-      const button = document.getElementById("open-door");
+  const input = document.getElementById("name-input");
+  const button = document.getElementById("open-door");
 
-      if (!name || name.length > 50) {
-        showError("Введите имя длиной от 1 до 50 символов.");
-        return;
-      }
+  if (hasProfile) {
+    // При необходимости замените name на настоящее название поля.
+    input.value = state.profile.name ?? "";
+    input.readOnly = true;
+  }
 
-      button.disabled = true;
+  button.addEventListener("click", async () => {
+    const name = input.value.trim();
 
-      try {
+    if (!hasProfile && (!name || name.length > 50)) {
+      showError("Введите имя длиной от 1 до 50 символов.");
+      return;
+    }
+
+    button.disabled = true;
+
+    try {
+      if (!hasProfile) {
         const result = await api("create_profile", { name });
         applyState(result);
-
-        // Запуск инициирован нажатием пользователя.
-        startBackgroundMusic();
-
-        currentPage = "home";
-        renderPage();
-      } catch (error) {
-        showError(error.message);
-        button.disabled = false;
       }
-    });
-}
 
+      startBackgroundMusic();
+
+      currentPage = "home";
+      renderPage();
+    } catch (error) {
+      showError(error.message);
+      button.disabled = false;
+    }
+  });
+}
 function treeMarkup() {
   const toys = state.decorations.map((toy) => `
     <img
@@ -703,25 +711,14 @@ async function start() {
     const result = await api("get_state");
     applyState(result);
 
-    if (state.profile) {
-      currentPage = "home";
-      renderPage();
-
-      /*
-        На повторном входе устройство может блокировать
-        автовоспроизведение без нажатия пользователя.
-      */
-      startBackgroundMusic();
-    } else {
-      renderStart();
-    }
+    // Показываем стартовый экран и новым, и существующим участникам.
+    renderStart();
   } catch (error) {
     app.innerHTML = `
       <p class="message">${escapeHtml(error.message)}</p>
     `;
   }
 }
-
 setInterval(refreshDecorations, 15000);
 window.addEventListener("pagehide", () => {
   audio.pause();
