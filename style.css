@@ -76,6 +76,7 @@ h2 {
 
 .room-frame {
   position: relative;
+  top: 30px;
   width: 100%;
   border: 1px solid #d7b76b;
   overflow: hidden;
