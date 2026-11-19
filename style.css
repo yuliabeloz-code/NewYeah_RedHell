@@ -93,9 +93,9 @@ h2 {
 */
 .room-tree-button {
   position: absolute;
-  left: 3%;
-  bottom: 3%;
-  width: 27%;
+  left: 2%;
+  bottom: 5%;
+  width: 40%;
   padding: 0;
   border: 0;
   background: transparent;
@@ -107,8 +107,8 @@ h2 {
 
 .room-music-button {
   position: absolute;
-  right: 4%;
-  bottom: 8%;
+  right: 10%;
+  bottom: 25%;
   width: 16%;
   padding: 0;
   border: 0;
