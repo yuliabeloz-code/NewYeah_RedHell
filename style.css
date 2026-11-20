@@ -378,11 +378,6 @@ h2 {
   font-size: 14px;
 }
 
-.zodiac-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
 
 .prediction-card {
   display: block;
@@ -404,7 +399,7 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  width: 280px;
+  width: 80px;
   max-width: 100%;
   min-height: 100px;
   padding: 16px 24px;
@@ -440,7 +435,7 @@ h2 {
 .zodiac-screen {
   padding: 24px;
   border-radius: 16px;
-  background-color: #015A07;
+  background-color: #492D21;
   color: #fff8df;
 }
 
@@ -465,7 +460,7 @@ h2 {
 
   border: 2px solid #d4af37;
   border-radius: 10px;
-  background-color: #860000;
+  background-color: #EADFCD;
   color: #fff8df;
 
   font: inherit;
