@@ -23,8 +23,8 @@ const CONFIG = {
 
   // Добавляйте или удаляйте песни здесь.
   songs: [
-    { title: "Песня 1", file: "music01.mp3" },
-    { title: "Песня 2", file: "music02.mp3" }
+    { title: "Песня 1", file: "music01.mp3", image: "vinyl01.png" },
+    { title: "Песня 2", file: "music02.mp3", image: "vinyl02.png" }
   ]
 };
 
@@ -629,7 +629,7 @@ function renderMusicModal() {
         data-song-index="${actualIndex}"
         aria-label="Воспроизвести: ${escapeHtml(song.title)}"
       >
-        <img src="music01.png" alt="">
+        <img src="${escapeHtml(song.image || "music01.png")}" alt="">
         <span>${escapeHtml(song.title)}</span>
       </button>
     `;
