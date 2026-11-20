@@ -261,6 +261,62 @@ h2 {
   display: block;
   width: 100%;
 }
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.music-vinyl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.music-vinyl img {
+  display: block;
+  width: min(100%, 140px);
+  height: auto;
+}
+
+.music-vinyl span {
+  overflow-wrap: anywhere;
+}
+
+.music-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.music-controls {
+  margin-top: 20px;
+}
+
+.music-controls[hidden] {
+  display: none;
+}
+
+.music-control-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.music-control-label input {
+  width: 100%;
+}
+
+.music-time {
+  margin-top: 6px;
+  text-align: center;
+}
 
 .zodiac-list {
   display: grid;
