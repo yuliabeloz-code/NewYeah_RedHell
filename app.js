@@ -516,7 +516,11 @@ async function saveToy() {
 /*
   ==================== МУЗЫКА ====================
 */
+const SONGS_PER_PAGE = 4;
 
+let musicPage = 0;
+
+// Запускает фоновую музыку.
 function startBackgroundMusic() {
   audioMode = "background";
   audio.src = CONFIG.backgroundMusic;
@@ -528,33 +532,107 @@ function startBackgroundMusic() {
   });
 }
 
+// Запускает выбранную песню.
 function playSong(index) {
-  if (!CONFIG.songs.length) return;
+  const total = CONFIG.songs.length;
+  if (!total) return;
 
-  songIndex = (
-    index + CONFIG.songs.length
-  ) % CONFIG.songs.length;
+  songIndex = ((index % total) + total) % total;
 
   audioMode = "playlist";
   audio.loop = false;
   audio.volume = 0.7;
   audio.src = CONFIG.songs[songIndex].file;
 
+  renderMusicModal();
+
   audio.play().catch(() => {
     showError("Не удалось воспроизвести аудиофайл.");
+    updateMusicControls();
   });
 }
+
+// Форматирует время в формате минуты:секунды.
+function formatMusicTime(seconds) {
+  if (!Number.isFinite(seconds) || seconds < 0) {
+    return "0:00";
+  }
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+
+  return `${minutes}:${String(remainingSeconds).padStart(2, "0")}`;
+}
+
+// Обновляет элементы управления, если окно музыки открыто.
+function updateMusicControls() {
+  const screen = modalBody.querySelector("#music-screen");
+  if (!screen || modal.classList.contains("hidden")) return;
+
+  const controls = screen.querySelector("#music-controls");
+  const isPlaylist = audioMode === "playlist" && CONFIG.songs.length > 0;
+
+  if (!controls) return;
+
+  controls.hidden = !isPlaylist;
+  if (!isPlaylist) return;
+
+  const playPauseButton = screen.querySelector("#music-play-pause");
+  const volume = screen.querySelector("#music-volume");
+  const progress = screen.querySelector("#music-progress");
+  const currentTime = screen.querySelector("#music-current-time");
+  const duration = screen.querySelector("#music-duration");
+  const nowPlaying = screen.querySelector("#music-now-playing");
+
+  const song = CONFIG.songs[songIndex];
+
+  if (nowPlaying) {
+    nowPlaying.textContent = song ? `Сейчас играет: ${song.title}` : "";
+  }
+
+  if (playPauseButton) {
+    playPauseButton.textContent = audio.paused ? "Продолжить" : "Остановить";
+  }
+
+  if (volume) {
+    volume.value = String(Math.round(audio.volume * 100));
+  }
+
+  const hasDuration = Number.isFinite(audio.duration) && audio.duration > 0;
+
+  if (progress) {
+    progress.disabled = !hasDuration;
+    progress.max = hasDuration ? String(audio.duration) : "0";
+    progress.value = hasDuration ? String(audio.currentTime) : "0";
+  }
+
+  if (currentTime) {
+    currentTime.textContent = formatMusicTime(audio.currentTime);
+  }
+
+  if (duration) {
+    duration.textContent = hasDuration
+      ? formatMusicTime(audio.duration)
+      : "0:00";
+  }
+}
+
+// После окончания песни запускается следующая.
+// После последней песни снова запускается первая.
 audio.addEventListener("ended", () => {
   if (audioMode === "playlist" && CONFIG.songs.length) {
-    playSong(songIndex + 1);
+    const nextIndex = (songIndex + 1) % CONFIG.songs.length;
 
-    if (!modal.classList.contains("hidden")) {
-      const musicScreen = modalBody.querySelector("#music-screen");
-
-      if (musicScreen) renderMusicModal();
-    }
+    musicPage = Math.floor(nextIndex / SONGS_PER_PAGE);
+    playSong(nextIndex);
   }
 });
+
+// Поддерживаем элементы управления в актуальном состоянии.
+["play", "pause", "timeupdate", "durationchange", "loadedmetadata", "volumechange"]
+  .forEach((eventName) => {
+    audio.addEventListener(eventName, updateMusicControls);
+  });
 
 function openMusic() {
   if (!availableFrom(CONFIG.musicAvailableFrom)) return;
@@ -564,55 +642,158 @@ function openMusic() {
 }
 
 function renderMusicModal() {
-  const song = CONFIG.songs[songIndex];
+  const songs = CONFIG.songs;
+  const totalPages = Math.ceil(songs.length / SONGS_PER_PAGE);
 
-  if (!song) {
-    modalBody.innerHTML = "<h2>Музыка</h2>";
+  if (!songs.length) {
+    modalBody.innerHTML = "<h2>Музыка</h2><p>Песен пока нет.</p>";
     return;
   }
 
+  // На случай, если количество песен изменилось.
+  musicPage = ((musicPage % totalPages) + totalPages) % totalPages;
+
+  const firstIndex = musicPage * SONGS_PER_PAGE;
+  const pageSongs = songs.slice(firstIndex, firstIndex + SONGS_PER_PAGE);
+
+  const vinyls = pageSongs.map((song, index) => {
+    const actualIndex = firstIndex + index;
+    const title = escapeHtml(song.title);
+
+    return `
+      <button
+        class="vinyl music-vinyl"
+                type="button"
+        data-song-index="${actualIndex}"
+        aria-label="Воспроизвести: ${title}"
+      >
+        <img alt="" data-song-image="${actualIndex}">
+        <span>${title}</span>
+      </button>
+    `;
+  }).join("");
+
   modalBody.innerHTML = `
     <div id="music-screen">
-      <h2>${escapeHtml(song.title)}</h2>
+      <h2>Музыка</h2>
 
-      <button
-        id="play-song"
-        class="vinyl"
-        type="button"
-        aria-label="Воспроизвести"
-      >
-        <img src="music01.png" alt="Пластинка">
-      </button>
+      <div class="music-grid">
+        ${vinyls}
+      </div>
 
-      <div class="modal-actions">
-        <button id="previous-song" class="gold-button" type="button">
+      <div class="modal-actions music-pagination">
+        <button
+          id="previous-page"
+          class="gold-button"
+          type="button"
+          aria-label="Предыдущая страница"
+        >
           ←
         </button>
 
-        <button id="next-song" class="gold-button" type="button">
+        <span>${musicPage + 1} / ${totalPages}</span>
+
+        <button
+          id="next-page"
+          class="gold-button"
+          type="button"
+          aria-label="Следующая страница"
+        >
           →
         </button>
+      </div>
+
+      <div id="music-controls" class="music-controls" hidden>
+        <p id="music-now-playing"></p>
+
+        <button
+          id="music-play-pause"
+          class="gold-button"
+          type="button"
+        >
+          Остановить
+        </button>
+
+        <label class="music-control-label">
+          Громкость
+          <input
+            id="music-volume"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            aria-label="Громкость"
+          >
+        </label>
+
+        <label class="music-control-label">
+          Позиция песни
+          <input
+            id="music-progress"
+            type="range"
+            min="0"
+            max="0"
+            value="0"
+            step="0.1"
+            aria-label="Позиция песни"
+            disabled
+          >
+        </label>
+
+        <div class="music-time">
+          <span id="music-current-time">0:00</span>
+          <span> / </span>
+          <span id="music-duration">0:00</span>
+        </div>
       </div>
     </div>
   `;
 
-  document.getElementById("play-song")
-    .addEventListener("click", () => playSong(songIndex));
+  const screen = modalBody.querySelector("#music-screen");
 
-  document.getElementById("previous-song")
-    .addEventListener("click", () => {
-      songIndex = (
-        songIndex - 1 + CONFIG.songs.length
-      ) % CONFIG.songs.length;
+  // Назначаем адрес картинки через свойство, а не вставляем его в HTML.
+  screen.querySelectorAll("[data-song-image]").forEach((image) => {
+    const index = Number(image.dataset.songImage);
+    image.src = songs[index].image || "music01.png";
+  });
 
-      renderMusicModal();
+  screen.querySelectorAll("[data-song-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      playSong(Number(button.dataset.songIndex));
     });
+  });
 
-  document.getElementById("next-song")
-    .addEventListener("click", () => {
-      songIndex = (songIndex + 1) % CONFIG.songs.length;
-      renderMusicModal();
-    });
+  screen.querySelector("#previous-page").addEventListener("click", () => {
+    musicPage = (musicPage - 1 + totalPages) % totalPages;
+    renderMusicModal();
+  });
+
+  screen.querySelector("#next-page").addEventListener("click", () => {
+    musicPage = (musicPage + 1) % totalPages;
+    renderMusicModal();
+  });
+
+  screen.querySelector("#music-play-pause").addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().catch(() => {
+        showError("Не удалось продолжить воспроизведение.");
+      });
+    } else {
+      audio.pause();
+    }
+  });
+
+  screen.querySelector("#music-volume").addEventListener("input", (event) => {
+    audio.volume = Number(event.target.value) / 100;
+  });
+
+  screen.querySelector("#music-progress").addEventListener("input", (event) => {
+    if (Number.isFinite(audio.duration)) {
+      audio.currentTime = Number(event.target.value);
+    }
+  });
+
+  updateMusicControls();
 }
 
 /*
