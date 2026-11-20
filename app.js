@@ -297,12 +297,16 @@ function renderHome() {
     </div>
 
     ${predictionEnabled ? `
-      <div class="prediction-row">
-        <button id="prediction-button" class="gold-button" type="button">
-          Получить предсказание
-        </button>
-      </div>
-    ` : ""}
+  <div class="prediction-row">
+    <button
+      id="prediction-button"
+      class="prediction-image-button"
+      type="button"
+    >
+      <span>Получить предсказание на 2027</span>
+    </button>
+  </div>
+` : ""}
   `;
 
   document.getElementById("tree-button")
@@ -843,18 +847,20 @@ function openZodiacList() {
   openModal();
 
   modalBody.innerHTML = `
-    <h2>Выберите знак зодиака</h2>
+    <div class="zodiac-screen">
+      <h2>Выберите знак зодиака</h2>
 
-    <div class="zodiac-list">
-      ${zodiac.map(([name], index) => `
-        <button
-          class="gold-button zodiac-button"
-          data-index="${index}"
-          type="button"
-        >
-          ${escapeHtml(name)}
-        </button>
-      `).join("")}
+      <div class="zodiac-list">
+        ${zodiac.map(([name], index) => `
+          <button
+            class="zodiac-button"
+            data-index="${index}"
+            type="button"
+          >
+            ${escapeHtml(name)}
+          </button>
+        `).join("")}
+      </div>
     </div>
   `;
 
@@ -865,7 +871,6 @@ function openZodiacList() {
       });
     });
 }
-
 function showPrediction(index) {
   const [name, file] = zodiac[index];
 
