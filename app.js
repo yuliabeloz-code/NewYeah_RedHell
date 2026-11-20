@@ -516,7 +516,15 @@ async function saveToy() {
 /*
   ==================== МУЗЫКА ====================
 */
-// Запускает фоновую музыку.
+const SONGS_PER_PAGE = 4;
+
+let musicPage = 0;
+let hasSelectedSong = false;
+
+/* =========================
+   Фоновая музыка
+========================= */
+
 function startBackgroundMusic() {
   audioMode = "background";
   audio.src = CONFIG.backgroundMusic;
@@ -528,38 +536,46 @@ function startBackgroundMusic() {
   });
 }
 
-// Количество пластинок на одной странице.
-const SONGS_PER_PAGE = 4;
-
-// Текущая страница пластинок.
-let musicPage = 0;
-
-// Была ли уже выбрана песня пользователем.
-let hasSelectedSong = false;
+/* =========================
+   Воспроизведение песен
+========================= */
 
 function playSong(index) {
-  if (!CONFIG.songs.length) return;
+  const songs = CONFIG.songs;
+
+  if (!songs || !songs.length) return;
 
   songIndex = (
-    (index % CONFIG.songs.length) + CONFIG.songs.length
-  ) % CONFIG.songs.length;
+    (index % songs.length) + songs.length
+  ) % songs.length;
 
   hasSelectedSong = true;
   audioMode = "playlist";
+
   audio.loop = false;
   audio.volume = 0.7;
-  audio.src = CONFIG.songs[songIndex].file;
+  audio.src = songs[songIndex].file;
 
   // При переключении песни показываем страницу с её пластинкой.
   musicPage = Math.floor(songIndex / SONGS_PER_PAGE);
 
-  renderMusicModal();
+  // Обновляем окно, только если сейчас открыт экран музыки.
+  if (
+    !modal.classList.contains("hidden") &&
+    modalBody.querySelector("#music-screen")
+  ) {
+    renderMusicModal();
+  }
 
   audio.play().catch(() => {
     showError("Не удалось воспроизвести аудиофайл.");
     updateMusicPlayer();
   });
 }
+
+/* =========================
+   Открытие окна музыки
+========================= */
 
 function openMusic() {
   if (!availableFrom(CONFIG.musicAvailableFrom)) return;
@@ -568,18 +584,29 @@ function openMusic() {
   renderMusicModal();
 }
 
+/* =========================
+   Отображение окна музыки
+========================= */
+
 function renderMusicModal() {
-  const songs = CONFIG.songs;
+  const songs = CONFIG.songs || [];
 
   if (!songs.length) {
-    modalBody.innerHTML = "<h2>Музыка</h2><p>Песен пока нет.</p>";
+    modalBody.innerHTML = `
+      <div id="music-screen">
+        <h2>Музыка</h2>
+        <p>Песен пока нет.</p>
+      </div>
+    `;
+
     return;
   }
 
   const pageCount = Math.ceil(songs.length / SONGS_PER_PAGE);
 
-  // На случай, если количество песен изменилось.
-  musicPage = ((musicPage % pageCount) + pageCount) % pageCount;
+  musicPage = (
+    (musicPage % pageCount) + pageCount
+  ) % pageCount;
 
   const startIndex = musicPage * SONGS_PER_PAGE;
   const pageSongs = songs.slice(
@@ -589,11 +616,11 @@ function renderMusicModal() {
 
   const recordsHtml = pageSongs.map((song, index) => {
     const actualIndex = startIndex + index;
-    const isActive = (
+
+    const isActive =
       hasSelectedSong &&
       audioMode === "playlist" &&
-      actualIndex === songIndex
-    );
+      actualIndex === songIndex;
 
     return `
       <button
@@ -608,7 +635,10 @@ function renderMusicModal() {
     `;
   }).join("");
 
-  const showPlayer = hasSelectedSong && audioMode === "playlist";
+  const showPlayer =
+    hasSelectedSong &&
+    audioMode === "playlist" &&
+    Boolean(songs[songIndex]);
 
   modalBody.innerHTML = `
     <div id="music-screen">
@@ -647,18 +677,21 @@ function renderMusicModal() {
                   id="player-previous"
                   type="button"
                   aria-label="Предыдущая песня"
+                  title="Предыдущая песня"
                 >⏮</button>
 
                 <button
                   id="player-toggle"
                   type="button"
-                  aria-label="Пауза"
-                >⏸</button>
+                  aria-label="Воспроизвести"
+                  title="Воспроизвести или поставить на паузу"
+                >▶</button>
 
                 <button
                   id="player-next"
                   type="button"
-                  aria-label="Следующая песня"
+                                    aria-label="Следующая песня"
+                  title="Следующая песня"
                 >⏭</button>
               </div>
             </div>
@@ -686,50 +719,62 @@ function renderMusicModal() {
     </div>
   `;
 
+  // Нажатие на пластинку.
   modalBody.querySelectorAll("[data-song-index]").forEach((button) => {
     button.addEventListener("click", () => {
       playSong(Number(button.dataset.songIndex));
     });
   });
-    modalBody.querySelector("#previous-page").addEventListener("click", () => {
+
+  // Предыдущая страница пластинок.
+  modalBody.querySelector("#previous-page").addEventListener("click", () => {
     musicPage = (musicPage - 1 + pageCount) % pageCount;
     renderMusicModal();
   });
 
+  // Следующая страница пластинок.
   modalBody.querySelector("#next-page").addEventListener("click", () => {
     musicPage = (musicPage + 1) % pageCount;
     renderMusicModal();
   });
 
-  if (showPlayer) {
-    modalBody.querySelector("#player-previous").addEventListener("click", () => {
-      playSong(songIndex - 1);
-    });
+  if (!showPlayer) return;
 
-    modalBody.querySelector("#player-next").addEventListener("click", () => {
-      playSong(songIndex + 1);
-    });
+  // Предыдущая песня.
+  modalBody.querySelector("#player-previous").addEventListener("click", () => {
+    playSong(songIndex - 1);
+  });
 
-    modalBody.querySelector("#player-toggle").addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play().catch(() => {
-          showError("Не удалось воспроизвести аудиофайл.");
-          updateMusicPlayer();
-        });
-      } else {
-        audio.pause();
-      }
-    });
+  // Следующая песня.
+  modalBody.querySelector("#player-next").addEventListener("click", () => {
+    playSong(songIndex + 1);
+  });
 
-    modalBody.querySelector("#music-progress").addEventListener("input", (event) => {
-      if (Number.isFinite(audio.duration)) {
-        audio.currentTime = Number(event.target.value);
-      }
-    });
+  // Пауза и продолжение воспроизведения.
+  modalBody.querySelector("#player-toggle").addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().catch(() => {
+        showError("Не удалось воспроизвести аудиофайл.");
+        updateMusicPlayer();
+      });
+    } else {
+      audio.pause();
+    }
+  });
 
-    updateMusicPlayer();
-  }
+  // Перемотка с помощью ползунка.
+  modalBody.querySelector("#music-progress").addEventListener("input", (event) => {
+    if (Number.isFinite(audio.duration)) {
+      audio.currentTime = Number(event.target.value);
+    }
+  });
+
+  updateMusicPlayer();
 }
+
+/* =========================
+   Обновление медиаплеера
+========================= */
 
 function formatMusicTime(seconds) {
   if (!Number.isFinite(seconds)) return "0:00";
@@ -741,9 +786,11 @@ function formatMusicTime(seconds) {
 }
 
 function updateMusicPlayer() {
-  // Не обновляем плеер, если открыто другое окно.
+  if (audioMode !== "playlist") return;
+
   const screen = modalBody.querySelector("#music-screen");
-  if (!screen || audioMode !== "playlist") return;
+
+  if (!screen) return;
 
   const progress = screen.querySelector("#music-progress");
   const currentTime = screen.querySelector("#music-current-time");
@@ -752,7 +799,9 @@ function updateMusicPlayer() {
 
   if (!progress || !currentTime || !duration || !toggle) return;
 
-  const total = Number.isFinite(audio.duration) ? audio.duration : 0;
+  const total = Number.isFinite(audio.duration)
+    ? audio.duration
+    : 0;
 
   progress.max = total;
   progress.value = Math.min(audio.currentTime || 0, total);
@@ -761,13 +810,17 @@ function updateMusicPlayer() {
   duration.textContent = formatMusicTime(total);
 
   toggle.textContent = audio.paused ? "▶" : "⏸";
+
   toggle.setAttribute(
     "aria-label",
     audio.paused ? "Воспроизвести" : "Пауза"
   );
 }
 
-// Эти обработчики добавляются один раз, а не при каждом открытии окна.
+/* =========================
+   События аудиоплеера
+========================= */
+
 audio.addEventListener("timeupdate", updateMusicPlayer);
 audio.addEventListener("loadedmetadata", updateMusicPlayer);
 audio.addEventListener("durationchange", updateMusicPlayer);
