@@ -516,6 +516,17 @@ async function saveToy() {
 /*
   ==================== МУЗЫКА ====================
 */
+// Запускает фоновую музыку.
+function startBackgroundMusic() {
+  audioMode = "background";
+  audio.src = CONFIG.backgroundMusic;
+  audio.volume = 0.2;
+  audio.loop = true;
+
+  audio.play().catch(() => {
+    // Некоторые устройства запрещают автозапуск.
+  });
+}
 
 // Количество пластинок на одной странице.
 const SONGS_PER_PAGE = 4;
