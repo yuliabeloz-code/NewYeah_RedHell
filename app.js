@@ -23,8 +23,8 @@ const CONFIG = {
 
   // Добавляйте или удаляйте песни здесь.
   songs: [
-    { title: "Песня 1", file: "music01.mp4" },
-    { title: "Песня 2", file: "music02.mp4" }
+    { title: "Песня 1", file: "music01.mp3" },
+    { title: "Песня 2", file: "music02.mp3" }
   ]
 };
 
