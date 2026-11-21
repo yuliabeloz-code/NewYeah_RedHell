@@ -399,9 +399,9 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  width: 200px;
+  width: 270px;
   max-width: 100%;
-  min-height: 100px;
+  min-height: 120px;
   padding: 16px 24px;
 
   border: 0;
@@ -431,7 +431,7 @@ h2 {
   outline-offset: 3px;
 }
 
-/* Зелёный фон области со списком знаков */
+/* Фон области со списком знаков */
 .zodiac-screen {
   padding: 24px;
   border-radius: 16px;
