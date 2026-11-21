@@ -509,21 +509,77 @@ h2 {
 .advent-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .advent-cell {
-  min-height: 68px;
-  border: 1px solid #d7b76b;
-  border-radius: 8px;
-  background: rgba(70, 38, 25, 0.9);
-  color: #fff5d6;
-  font-size: 22px;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+  /*
+    Числа остаются в HTML, но визуально скрываются:
+    предполагается, что они уже есть на изображениях.
+    aria-label по-прежнему доступен программам чтения с экрана.
+  */
+  font-size: 0;
+
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Изображение выбирается по номеру ячейки с сервера. */
+.advent-cell[data-cell="1"]  { background-image: url("advent01.png"); }
+.advent-cell[data-cell="2"]  { background-image: url("advent02.png"); }
+.advent-cell[data-cell="3"]  { background-image: url("advent03.png"); }
+.advent-cell[data-cell="4"]  { background-image: url("advent04.png"); }
+.advent-cell[data-cell="5"]  { background-image: url("advent05.png"); }
+.advent-cell[data-cell="6"]  { background-image: url("advent06.png"); }
+.advent-cell[data-cell="7"]  { background-image: url("advent07.png"); }
+.advent-cell[data-cell="8"]  { background-image: url("advent08.png"); }
+.advent-cell[data-cell="9"]  { background-image: url("advent09.png"); }
+.advent-cell[data-cell="10"] { background-image: url("advent10.png"); }
+.advent-cell[data-cell="11"] { background-image: url("advent11.png"); }
+.advent-cell[data-cell="12"] { background-image: url("advent12.png"); }
+.advent-cell[data-cell="13"] { background-image: url("advent13.png"); }
+.advent-cell[data-cell="14"] { background-image: url("advent14.png"); }
+
+/* Две последние кнопки занимают по две колонки каждая. */
+.advent-cell[data-cell="13"],
+.advent-cell[data-cell="14"] {
+  grid-column: span 2;
+  aspect-ratio: 2 / 1;
 }
 
 .advent-cell:disabled {
-  opacity: 0.45;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.advent-cell:hover:not(:disabled) {
+  transform: scale(1.03);
+}
+
+.advent-cell:focus-visible {
+  outline: 3px solid #b18b43;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .advent-grid {
+    gap: 6px;
+  }
 }
 
 .room-actions {
