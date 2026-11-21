@@ -303,7 +303,7 @@ function renderHome() {
       class="prediction-image-button"
       type="button"
     >
-      <span> Предсказание </span>
+      <span> Получить предсказание </span>
     </button>
   </div>
 ` : ""}
