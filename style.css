@@ -643,7 +643,7 @@ width: max-content;
   grid-row: 1;
 
   /* Сдвиг: сначала по горизонтали, затем по вертикали */
-  transform: translate(5px, 50px);
+  transform: translate(5px, 70px);
 
   /* Индивидуальный цвет подписи */
   color: #fff5d6;
@@ -651,7 +651,7 @@ width: max-content;
 
 #open-games img {
   max-width: 110px;
-  height: 90px;
+  height: 70px;
 }
 
 #open-games span {
@@ -665,13 +665,13 @@ width: max-content;
 #open-letter {
   grid-column: 2;
   grid-row: 1;
-  transform: translate(5px, 55px);
+  transform: translate(60px, 72px);
   color: #fff5d6;
 }
 
 #open-letter img {
   max-width: 110px;
-  height: 90px;
+  height: 60px;
 }
 
 #open-letter span {
@@ -685,7 +685,7 @@ width: max-content;
 #open-stars {
   grid-column: 3;
   grid-row: 1;
-  transform: translate(30px, 60px);
+  transform: translate(-30px, 80px);
   color: #fff5d6;
 }
 
