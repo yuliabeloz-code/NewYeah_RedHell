@@ -172,16 +172,36 @@ width: max-content;
   transform: translateX(-50%);
 }
 
+.navigation {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  width: max-content;
+  padding: 8px;
+  border: 1px solid #d7b76b;
+  border-radius: 20px;
+  background: transparent;
+
+  transform: translateX(-50%);
+}
+
 .navigation button {
   box-sizing: border-box;
   width: 100px;
   height: 100px;
   padding: 5px;
 
-  /* Круглая кнопка с золотой окантовкой */
+  /* Золотая рамка вокруг каждой кнопки */
   border: 1px solid #d7b76b;
   border-radius: 50%;
-  background: #693039;
+  background: transparent;
   color: #fff5d6;
 
   display: flex;
@@ -204,7 +224,6 @@ width: max-content;
   font-size: 15px;
   line-height: 1;
 }
-
 .modal {
   position: fixed;
   z-index: 20;
