@@ -323,8 +323,8 @@ function renderHome() {
 
 function clearBedroomBackground() {
   document.body.classList.remove("bedroom-day", "bedroom-night");
+  document.body.style.backgroundImage = "";
 }
-
 function setBedroomBackground() {
   clearBedroomBackground();
 
@@ -433,6 +433,7 @@ function renderAdvent() {
 }
 
 function renderPage() {
+  clearBedroomBackground();
   if (!state.profile) {
     renderStart();
     return;
