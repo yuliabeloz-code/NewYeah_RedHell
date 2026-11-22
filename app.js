@@ -319,18 +319,71 @@ function renderHome() {
     ?.addEventListener("click", openZodiacList);
 }
 
+function clearBedroomBackground() {
+  document.body.classList.remove(
+    "bedroom-day",
+    "bedroom-night"
+  );
+}
+
+function setBedroomBackground() {
+  clearBedroomBackground();
+
+  const hour = new Date().getHours();
+
+  if (hour >= 7 && hour < 16) {
+    document.body.classList.add("bedroom-day");
+  } else {
+    document.body.classList.add("bedroom-night");
+  }
+}
+
+
+// Здесь находится функция личной комнаты
 function renderBedroom() {
+  setBedroomBackground();
+
   app.innerHTML = `
     <h1>Личная комната</h1>
 
     <div class="task">
       <p>Имя: ${escapeHtml(state.profile.name)}</p>
-      <p>Конфеты: ${Number(state.profile.candy_balance)}</p>
+
+      <p>
+        Конфеты:
+        ${Number(state.profile.candy_balance)}
+      </p>
+
       <p>
         Заработано за сохранённый день:
         ${Number(state.profile.candy_earned_today)}
       </p>
     </div>
+  `;
+}
+
+
+// Например, функция адвент-календаря
+function renderAdvent() {
+  clearBedroomBackground();
+
+  const tasksHtml = state.tasks.map((entry) => {
+    const task = entry.task || {};
+
+    return `
+      <article class="task">
+        <h2>${escapeHtml(task.title || "")}</h2>
+        <p>${escapeHtml(task.description || "")}</p>
+        <p>
+          ${entry.completed ? "Выполнено" : "Не выполнено"}
+        </p>
+      </article>
+    `;
+  }).join("");
+
+  app.innerHTML = `
+    <h1>Адвент-календарь</h1>
+    ${tasksHtml}
   `;
 }
 
