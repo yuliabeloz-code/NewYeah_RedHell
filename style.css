@@ -600,18 +600,15 @@ width: max-content;
     gap: 6px;
   }
 }
-
-/* Область расположения кнопок */
-.room-actions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 25px 0;
-}
-
 /* Общий стиль кнопок */
 .room-action {
+  position: fixed;
+  z-index: 10;
+
+  /* Размер области нажатия */
+  width: 110px;
   padding: 8px;
+
   border: none;
   background: transparent;
   color: #fff5d6;
@@ -622,8 +619,7 @@ width: max-content;
 .room-action img {
   display: block;
   width: 100%;
-  max-width: 110px;
-  height: 90px;
+  height: auto;
   object-fit: contain;
   margin: 0 auto 6px;
 }
@@ -639,19 +635,15 @@ width: max-content;
    ========================= */
 
 #open-games {
-  grid-column: 1;
-  grid-row: 1;
+  left: 10%;  /* расстояние от левого края окна */
+  top: 65%;   /* расстояние от верхнего края окна */
 
-  /* Сдвиг: сначала по горизонтали, затем по вертикали */
-  transform: translate(5px, 70px);
-
-  /* Индивидуальный цвет подписи */
+  width: 100px;
   color: #fff5d6;
 }
 
 #open-games img {
-  max-width: 110px;
-  height: 70px;
+  width: 80px;
 }
 
 #open-games span {
@@ -663,15 +655,15 @@ width: max-content;
    ========================= */
 
 #open-letter {
-  grid-column: 2;
-  grid-row: 1;
-  transform: translate(60px, 72px);
+  left: 82%;
+  top: 63%;
+
+  width: 100px;
   color: #fff5d6;
 }
 
 #open-letter img {
-  max-width: 110px;
-  height: 60px;
+  width: 70px;
 }
 
 #open-letter span {
@@ -683,15 +675,15 @@ width: max-content;
    ========================= */
 
 #open-stars {
-  grid-column: 3;
-  grid-row: 1;
-  transform: translate(-30px, 80px);
+  left: 56%;
+  top: 72%;
+
+  width: 110px;
   color: #fff5d6;
 }
 
 #open-stars img {
-  max-width: 110px;
-  height: 90px;
+  width: 90px;
 }
 
 #open-stars span {
