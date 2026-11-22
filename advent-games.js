@@ -349,8 +349,7 @@ renderAdvent = async function () {
 
         const task = cell.task || {};
 
-        openModal();
-        modalBody.classList.add("advent-modal")
+        openModal()
 
         modalBody.innerHTML = `
           <h2>Ячейка ${number}</h2>
