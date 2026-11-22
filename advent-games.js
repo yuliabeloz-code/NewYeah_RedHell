@@ -354,14 +354,9 @@ renderAdvent = async function () {
         modalBody.innerHTML = `
           <h2>Ячейка ${number}</h2>
 
-          <div class="task">
-            <h2>${escapeHtml(task.title || "")}</h2>
-
+          <div class="task"
             <p>${escapeHtml(task.description || "")}</p>
 
-            <p>
-              ${cell.completed ? "Выполнено" : "Не выполнено"}
-            </p>
           </div>
         `;
       });
