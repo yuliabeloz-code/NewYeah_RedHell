@@ -601,6 +601,7 @@ width: max-content;
   }
 }
 
+/* Область расположения кнопок */
 .room-actions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -608,14 +609,16 @@ width: max-content;
   margin: 25px 0;
 }
 
+/* Общий стиль кнопок */
 .room-action {
   padding: 8px;
-  border: 1px solid #d7b76b;
-  border-radius: 10px;
-  background: rgba(30, 20, 15, 0.75);
+  border: none;
+  background: transparent;
   color: #fff5d6;
+  cursor: pointer;
 }
 
+/* Общий стиль изображений */
 .room-action img {
   display: block;
   width: 100%;
@@ -625,8 +628,73 @@ width: max-content;
   margin: 0 auto 6px;
 }
 
+/* Общий стиль подписей */
 .room-action span {
   display: block;
+  font-size: 13px;
+}
+
+/* =========================
+   КНОПКА «ИГРЫ»
+   ========================= */
+
+#open-games {
+  grid-column: 1;
+  grid-row: 1;
+
+  /* Сдвиг: сначала по горизонтали, затем по вертикали */
+  transform: translate(5px, 50px);
+
+  /* Индивидуальный цвет подписи */
+  color: #fff5d6;
+}
+
+#open-games img {
+  max-width: 110px;
+  height: 90px;
+}
+
+#open-games span {
+  font-size: 13px;
+}
+
+/* =========================
+   КНОПКА «ПИСЬМО»
+   ========================= */
+
+#open-letter {
+  grid-column: 2;
+  grid-row: 1;
+  transform: translate(5px, 55px);
+  color: #fff5d6;
+}
+
+#open-letter img {
+  max-width: 110px;
+  height: 90px;
+}
+
+#open-letter span {
+  font-size: 13px;
+}
+
+/* =========================
+   КНОПКА «ЗВЁЗДЫ»
+   ========================= */
+
+#open-stars {
+  grid-column: 3;
+  grid-row: 1;
+  transform: translate(30px, 60px);
+  color: #fff5d6;
+}
+
+#open-stars img {
+  max-width: 110px;
+  height: 90px;
+}
+
+#open-stars span {
   font-size: 13px;
 }
 
