@@ -260,7 +260,16 @@ function treeMarkup() {
   `;
 }
 
+function clearBedroomBackground() {
+  document.body.classList.remove(
+    "bedroom-day",
+    "bedroom-night"
+  );
+}
+
 function renderHome() {
+  clearBedroomBackground();
+
   const treeEnabled = availableFrom(CONFIG.treeAvailableFrom);
   const musicEnabled = availableFrom(CONFIG.musicAvailableFrom);
   const predictionEnabled = availableFrom(CONFIG.predictionAvailableFrom);
@@ -297,16 +306,16 @@ function renderHome() {
     </div>
 
     ${predictionEnabled ? `
-  <div class="prediction-row">
-    <button
-      id="prediction-button"
-      class="prediction-image-button"
-      type="button"
-    >
-      <span> Получить предсказание </span>
-    </button>
-  </div>
-` : ""}
+      <div class="prediction-row">
+        <button
+          id="prediction-button"
+          class="prediction-image-button"
+          type="button"
+        >
+          <span>Получить предсказание</span>
+        </button>
+      </div>
+    ` : ""}
   `;
 
   document.getElementById("tree-button")
@@ -317,13 +326,6 @@ function renderHome() {
 
   document.getElementById("prediction-button")
     ?.addEventListener("click", openZodiacList);
-}
-
-function clearBedroomBackground() {
-  document.body.classList.remove(
-    "bedroom-day",
-    "bedroom-night"
-  );
 }
 
 function setBedroomBackground() {
@@ -338,8 +340,6 @@ function setBedroomBackground() {
   }
 }
 
-
-// Здесь находится функция личной комнаты
 function renderBedroom() {
   setBedroomBackground();
 
@@ -362,7 +362,6 @@ function renderBedroom() {
   `;
 }
 
-
 // Например, функция адвент-календаря
 function renderAdvent() {
   clearBedroomBackground();
@@ -377,25 +376,6 @@ function renderAdvent() {
         <p>
           ${entry.completed ? "Выполнено" : "Не выполнено"}
         </p>
-      </article>
-    `;
-  }).join("");
-
-  app.innerHTML = `
-    <h1>Адвент-календарь</h1>
-    ${tasksHtml}
-  `;
-}
-
-function renderAdvent() {
-  const tasksHtml = state.tasks.map((entry) => {
-    const task = entry.task || {};
-
-    return `
-      <article class="task">
-        <h2>${escapeHtml(task.title || "")}</h2>
-        <p>${escapeHtml(task.description || "")}</p>
-        <p>${entry.completed ? "Выполнено" : "Не выполнено"}</p>
       </article>
     `;
   }).join("");
