@@ -359,6 +359,7 @@ function renderBedroom() {
 }
 
 function renderAdvent() {
+clearBedroomBackground()
   const tasksHtml = state.tasks.map((entry) => {
     const task = entry.task || {};
 
@@ -380,10 +381,7 @@ function renderAdvent() {
 }
 
 function renderPage() {
-  // Убираем фон комнаты перед переходом на другую страницу.
-  // renderBedroom() установит его заново, если нужно.
-  clearBedroomBackground();
-
+clearBedroomBackground() {
   if (!state.profile) {
     renderStart();
     return;
