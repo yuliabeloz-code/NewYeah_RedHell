@@ -500,7 +500,7 @@ h2 {
 
 .advent-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
 
   width: 100%;
@@ -510,6 +510,7 @@ h2 {
 
 .advent-cell {
   display: block;
+  grid-column: span 2; /* Три ячейки в ряду */
   width: 100%;
   aspect-ratio: 1 / 1;
 
@@ -520,11 +521,7 @@ h2 {
   background-position: center;
   background-size: 100% 100%;
 
-  /*
-    Числа остаются в HTML, но визуально скрываются:
-    предполагается, что они уже есть на изображениях.
-    aria-label по-прежнему доступен программам чтения с экрана.
-  */
+  /* Числа визуально скрыты, так как они есть на изображениях. */
   font-size: 0;
 
   cursor: pointer;
@@ -547,11 +544,11 @@ h2 {
 .advent-cell[data-cell="13"] { background-image: url("advent13.png"); }
 .advent-cell[data-cell="14"] { background-image: url("advent14.png"); }
 
-/* Две последние кнопки занимают по две колонки каждая. */
+/* Две последние ячейки занимают по половине последнего ряда. */
 .advent-cell[data-cell="13"],
 .advent-cell[data-cell="14"] {
-  grid-column: span 2;
-  aspect-ratio: 2 / 1;
+  grid-column: span 3;
+  aspect-ratio: 3 / 2;
 }
 
 .advent-cell:disabled {
