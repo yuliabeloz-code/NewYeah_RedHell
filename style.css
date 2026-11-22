@@ -636,14 +636,14 @@ width: max-content;
 
 #open-games {
   left: 10%;  /* расстояние от левого края окна */
-  top: 50%;   /* расстояние от верхнего края окна */
+  top: 54%;   /* расстояние от верхнего края окна */
 
   width: 100px;
   color: #fff5d6;
 }
 
 #open-games img {
-  width: 60px;
+  width: 50px;
 }
 
 #open-games span {
@@ -655,7 +655,7 @@ width: max-content;
    ========================= */
 
 #open-letter {
-  left: 77%;
+  left: 75%;
   top: 49%;
 
   width: 100px;
@@ -663,7 +663,7 @@ width: max-content;
 }
 
 #open-letter img {
-  width: 66px;
+  width: 64px;
 }
 
 #open-letter span {
@@ -675,15 +675,15 @@ width: max-content;
    ========================= */
 
 #open-stars {
-  left: 50%;
-  top: 51%;
+  left: 48%;
+  top: 48%;
 
-  width: 110px;
+  width: 130px;
   color: #fff5d6;
 }
 
 #open-stars img {
-  width: 120px;
+  width: 130px;
 }
 
 #open-stars span {
