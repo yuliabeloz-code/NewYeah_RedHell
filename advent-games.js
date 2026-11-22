@@ -93,6 +93,9 @@ function stopCurrentGame() {
 
   gameCleanup = null;
 }
+function clearBedroomBackground() {
+  document.body.style.backgroundImage = "";
+}
 
 /*
   При закрытии модального окна останавливаем таймеры игры.
@@ -288,6 +291,7 @@ function showGameResult({
 */
 
 renderAdvent = async function () {
+  clearBedroomBackground();
   app.innerHTML = `
     <h1>Адвент-календарь</h1>
     <p class="message">Загрузка календаря…</p>
@@ -372,14 +376,6 @@ renderAdvent = async function () {
   }
 };
 
-
-/*
-  ============================================================
-  ЛИЧНАЯ КОМНАТА
-
-  Заменяем прежний renderBedroom из app.js.
-  ============================================================
-*/
 
 renderBedroom = async function () {
   const hour = new Date().getHours();
