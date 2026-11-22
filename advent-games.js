@@ -382,6 +382,13 @@ renderAdvent = async function () {
 */
 
 renderBedroom = async function () {
+  const hour = new Date().getHours();
+  const isDay = hour >= 7 && hour < 16;
+
+  document.body.style.backgroundImage = isDay
+    ? 'url("room.jpg")'
+    : 'url("roomnight.jpg")';
+
   app.innerHTML = `
     <h1>Личная комната</h1>
 
