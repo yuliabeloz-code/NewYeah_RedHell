@@ -335,9 +335,7 @@ function clearBedroomBackground() {
 function setBedroomBackground() {
   clearBedroomBackground();
 
-  const hour = new Date().getHours();
-
-  if (hour >= 7 && hour < 16) {
+  if (isDaytime()) {
     document.body.classList.add("bedroom-day");
   } else {
     document.body.classList.add("bedroom-night");
@@ -346,7 +344,7 @@ function setBedroomBackground() {
 
 function renderBedroom() {
   setBedroomBackground();
-}
+
   app.innerHTML = `
     <h1>Личная комната</h1>
 
@@ -365,7 +363,6 @@ function renderBedroom() {
     </div>
   `;
 }
-
 // Например, функция адвент-календаря
 function renderAdvent() {
   clearBedroomBackground();
