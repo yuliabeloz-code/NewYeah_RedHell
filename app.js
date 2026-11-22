@@ -328,6 +328,10 @@ function renderHome() {
     ?.addEventListener("click", openZodiacList);
 }
 
+function clearBedroomBackground() {
+  document.body.classList.remove("bedroom-day", "bedroom-night");
+}
+
 function setBedroomBackground() {
   clearBedroomBackground();
 
@@ -342,7 +346,7 @@ function setBedroomBackground() {
 
 function renderBedroom() {
   setBedroomBackground();
-
+}
   app.innerHTML = `
     <h1>Личная комната</h1>
 
