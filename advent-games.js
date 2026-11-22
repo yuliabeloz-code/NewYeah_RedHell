@@ -356,6 +356,7 @@ renderAdvent = async function () {
           <h2>Ячейка ${number}</h2>
 
           <div class="task"
+          <h2>${escapeHtml(task.title || "")}</h2>
             <p>${escapeHtml(task.description || "")}</p>
 
           </div>
