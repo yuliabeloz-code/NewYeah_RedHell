@@ -325,7 +325,6 @@ function clearBedroomBackground() {
   document.body.style.backgroundImage = "";
 }
 function setBedroomBackground() {
-  clearBedroomBackground();
 
   if (isDaytime()) {
     document.body.classList.add("bedroom-day");
@@ -335,7 +334,6 @@ function setBedroomBackground() {
 }
 
 function renderBedroom() {
-  console.log("renderBedroom вызвана");
   setBedroomBackground();
 
   app.innerHTML = `
