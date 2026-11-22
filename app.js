@@ -357,30 +357,9 @@ function renderBedroom() {
   `;
 }
 
-function renderAdvent() {
-clearBedroomBackground()
-  const tasksHtml = state.tasks.map((entry) => {
-    const task = entry.task || {};
-
-    return `
-      <article class="task">
-        <h2>${escapeHtml(task.title || "")}</h2>
-        <p>${escapeHtml(task.description || "")}</p>
-        <p>
-          ${entry.completed ? "Выполнено" : "Не выполнено"}
-        </p>
-      </article>
-    `;
-  }).join("");
-
-  app.innerHTML = `
-    <h1>Адвент-календарь</h1>
-    ${tasksHtml}
-  `;
-}
-
 function renderPage() {
   clearBedroomBackground();
+
   if (!state.profile) {
     renderStart();
     return;
@@ -407,59 +386,6 @@ navigation.addEventListener("click", (event) => {
   closeModal();
   renderPage();
 });
-// Например, функция адвент-календаря
-function renderAdvent() {
-  clearBedroomBackground();
-
-  const tasksHtml = state.tasks.map((entry) => {
-    const task = entry.task || {};
-
-    return `
-      <article class="task">
-        <h2>${escapeHtml(task.title || "")}</h2>
-        <p>${escapeHtml(task.description || "")}</p>
-        <p>
-          ${entry.completed ? "Выполнено" : "Не выполнено"}
-        </p>
-      </article>
-    `;
-  }).join("");
-
-  app.innerHTML = `
-    <h1>Адвент-календарь</h1>
-    ${tasksHtml}
-  `;
-}
-
-function renderPage() {
-  clearBedroomBackground();
-  if (!state.profile) {
-    renderStart();
-    return;
-  }
-
-  document.body.classList.remove("start-screen");
-  navigation.classList.remove("hidden");
-
-  if (currentPage === "bedroom") {
-    renderBedroom();
-  } else if (currentPage === "advent") {
-        renderAdvent();
-  } else {
-    renderHome();
-  }
-}
-
-navigation.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-page]");
-
-  if (!button) return;
-
-  currentPage = button.dataset.page;
-  closeModal();
-  renderPage();
-});
-
 /*
   ==================== ЁЛКА ====================
 */
