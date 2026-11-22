@@ -260,13 +260,6 @@ function treeMarkup() {
   `;
 }
 
-function clearBedroomBackground() {
-  document.body.classList.remove(
-    "bedroom-day",
-    "bedroom-night"
-  );
-}
-
 function renderHome() {
   clearBedroomBackground();
 
@@ -363,6 +356,59 @@ function renderBedroom() {
     </div>
   `;
 }
+
+function renderAdvent() {
+  const tasksHtml = state.tasks.map((entry) => {
+    const task = entry.task || {};
+
+    return `
+      <article class="task">
+        <h2>${escapeHtml(task.title || "")}</h2>
+        <p>${escapeHtml(task.description || "")}</p>
+        <p>
+          ${entry.completed ? "Выполнено" : "Не выполнено"}
+        </p>
+      </article>
+    `;
+  }).join("");
+
+  app.innerHTML = `
+    <h1>Адвент-календарь</h1>
+    ${tasksHtml}
+  `;
+}
+
+function renderPage() {
+  // Убираем фон комнаты перед переходом на другую страницу.
+  // renderBedroom() установит его заново, если нужно.
+  clearBedroomBackground();
+
+  if (!state.profile) {
+    renderStart();
+    return;
+  }
+
+  document.body.classList.remove("start-screen");
+  navigation.classList.remove("hidden");
+
+  if (currentPage === "bedroom") {
+    renderBedroom();
+  } else if (currentPage === "advent") {
+    renderAdvent();
+  } else {
+    renderHome();
+  }
+}
+
+navigation.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-page]");
+
+  if (!button) return;
+
+  currentPage = button.dataset.page;
+  closeModal();
+  renderPage();
+});
 // Например, функция адвент-календаря
 function renderAdvent() {
   clearBedroomBackground();
