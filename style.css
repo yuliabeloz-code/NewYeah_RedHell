@@ -575,10 +575,6 @@ h2 {
   outline: 3px solid #b18b43;
   outline-offset: 3px;
 }
-.advent-modal {
-background-color: #C69D71;
-color: :3E2417;
-}
 
 @media (max-width: 480px) {
   .advent-grid {
