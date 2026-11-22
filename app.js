@@ -336,6 +336,7 @@ function setBedroomBackground() {
 }
 
 function renderBedroom() {
+  console.log("renderBedroom вызвана");
   setBedroomBackground();
 
   app.innerHTML = `
