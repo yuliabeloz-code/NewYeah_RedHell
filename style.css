@@ -87,6 +87,21 @@ h2 {
   width: 100%;
   height: auto;
 }
+body.bedroom-day {
+  background-image: url("room.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+body.bedroom-night {
+  background-image: url("room-night.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 
 /*
   Эти координаты можно подстроить под конкретную картинку гостиной.
