@@ -261,7 +261,6 @@ function treeMarkup() {
 }
 
 function renderHome() {
-  clearBedroomBackground();
 
   const treeEnabled = availableFrom(CONFIG.treeAvailableFrom);
   const musicEnabled = availableFrom(CONFIG.musicAvailableFrom);
@@ -381,7 +380,7 @@ clearBedroomBackground()
 }
 
 function renderPage() {
-clearBedroomBackground() {
+  clearBedroomBackground();
   if (!state.profile) {
     renderStart();
     return;
