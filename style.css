@@ -528,7 +528,7 @@ width: max-content;
 
 .advent-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 12px;
 
   width: 100%;
@@ -538,7 +538,7 @@ width: max-content;
 
 .advent-cell {
   display: block;
-  grid-column: span 2; /* Три ячейки в ряду */
+  grid-column: span 3; /* Четыре ячейки в ряду */
   width: 100%;
   aspect-ratio: 1 / 1;
 
@@ -549,7 +549,7 @@ width: max-content;
   background-position: center;
   background-size: 100% 100%;
 
-  /* Числа визуально скрыты, так как они есть на изображениях. */
+  /* Числа скрыты, так как они есть на изображениях. */
   font-size: 0;
 
   cursor: pointer;
@@ -575,33 +575,14 @@ width: max-content;
 /* Две последние ячейки занимают по половине последнего ряда. */
 .advent-cell[data-cell="13"],
 .advent-cell[data-cell="14"] {
-  grid-column: span 3;
+  grid-column: span 6;
   aspect-ratio: 3 / 2;
-}
-
-.advent-cell:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.advent-cell:hover:not(:disabled) {
-  transform: scale(1.03);
-}
-
-.advent-cell:focus-visible {
-  outline: 3px solid #b18b43;
-  outline-offset: 3px;
 }
 
 @media (max-width: 480px) {
   .advent-grid {
-    width: 90%;
+    width: 100%;
     gap: 6px;
-  }
-
-  .advent-grid .cell {
-    aspect-ratio: auto;
-    height: 100px;
   }
 }
 
