@@ -531,7 +531,7 @@ width: max-content;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
 
-  width: 95%;
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -595,7 +595,7 @@ width: max-content;
 
 @media (max-width: 480px) {
   .advent-grid {
-    width: 75%;
+    width: 80%;
     gap: 6px;
   }
 }
