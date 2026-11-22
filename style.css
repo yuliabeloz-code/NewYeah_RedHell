@@ -164,12 +164,21 @@ h2 {
   transform: translateX(-50%);
 }
 
+width: max-content;
+  border: 1px solid #d7b76b;
+  border-radius: 20px;
+  background: transparent;
+
+  transform: translateX(-50%);
+}
+
 .navigation button {
   box-sizing: border-box;
-  width: 144px;
-  height: 144px;
-  padding: 10px;
+  width: 100px;
+  height: 100px;
+  padding: 5px;
 
+  /* Круглая кнопка с золотой окантовкой */
   border: 1px solid #d7b76b;
   border-radius: 50%;
   background: #693039;
@@ -185,14 +194,14 @@ h2 {
 
 .navigation img {
   display: block;
-  width: 76px;
-  height: 76px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
-  margin: 0 0 6px;
+  margin: 0 0 3px;
 }
 
 .navigation span {
-  font-size: 22px;
+  font-size: 15px;
   line-height: 1;
 }
 
