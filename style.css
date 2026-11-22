@@ -595,8 +595,13 @@ width: max-content;
 
 @media (max-width: 480px) {
   .advent-grid {
-    width: 80%;
+    width: 90%;
     gap: 6px;
+  }
+
+  .advent-grid .cell {
+    aspect-ratio: auto;
+    height: 100px;
   }
 }
 
