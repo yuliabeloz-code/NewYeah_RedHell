@@ -19,7 +19,7 @@ const SANTA_STARS_CONFIG = {
   shopAvailableFrom: null,
 
   // Письмо доступно с 1 декабря включительно.
-  letterAvailableFrom: "2026-11-24T00:00:00",
+  letterAvailableFrom: "2026-11-25T00:00:00",
 
   // С 6 декабря, 00:00 кнопка уже недоступна.
   letterAvailableUntil: "2026-11-29T00:00:00",
