@@ -580,7 +580,7 @@ function startCatchGame() {
   stopCurrentGame();
 
   const gameId = crypto.randomUUID();
-  const duration = EXTRA_CONFIG.gameDurationSeconds;
+  const duration = 40;
 
   modalBody.innerHTML = `
     <div class="game-screen">
@@ -732,8 +732,12 @@ function startCatchGame() {
 
       return true;
     });
+if (caught >= 30) {
+  finish();
+  return;
+}
 
-    frameId = requestAnimationFrame(tick);
+frameId = requestAnimationFrame(tick);;
   }
 
   gameCleanup = () => {
@@ -1185,7 +1189,7 @@ function startPendulumGame() {
     if (!manualMode) {
       // Скорость плавно меняется во время движения.
       const speed =
-        1.6 + 0.7 * Math.sin(now / 2500);
+        2.8 + 2.1 * Math.sin(now / 1500);
 
       phase += delta * speed;
       angle = Math.sin(phase) * 35;
