@@ -466,7 +466,7 @@ function renderElfLetter(letterState) {
         <p>
           ${
             usedToday
-              ? "На текущую дату устройства подарок уже отправлен или обрабатывается."
+              ? "На сегодня ваш подарок уже отправлен и готовится к отправке эльфами."
               : "Достигнут общий лимит подарков."
           }
         </p>
@@ -637,17 +637,6 @@ function renderElfLetter(letterState) {
       return;
     }
 
-    // Простая проверка четырёх предложений.
-    const fourSentences =
-      /^(?:\s*[^.!?…]+[.!?…]+){4}\s*$/u;
-
-    if (!fourSentences.test(greeting)) {
-      message.textContent =
-        "Напишите четыре предложения и завершите каждое знаком препинания.";
-
-      return;
-    }
-
     sendButton.disabled = true;
     message.textContent = "Отправляем письмо…";
 
@@ -664,17 +653,12 @@ function renderElfLetter(letterState) {
       if (!message.isConnected) return;
 
       modalBody.innerHTML = `
-        <div class="elf-letter">
-          <h2>Письмо отправлено</h2>
+  <div class="elf-letter">
+    <h2>Письмо отправлено</h2>
 
-          <p>Ваш подарок отправлен в мастерскую эльфов.</p>
-
-          <p>
-            Номер письма:
-            ${escapeHtml(result.letterId)}
-          </p>
-        </div>
-      `;
+    <p>Ваш подарок отправлен в мастерскую эльфов.</p>
+  </div>
+`;
     } catch (error) {
       if (!message.isConnected) return;
 
