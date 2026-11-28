@@ -1189,7 +1189,7 @@ function startPendulumGame() {
     if (!manualMode) {
       // Скорость плавно меняется во время движения.
       const speed =
-        8.0 + 1.3 * Math.sin(now / 1500);
+        11.0 + 1.3 * Math.sin(now / 1500);
 
       phase += delta * speed;
       angle = Math.sin(phase) * 35;
